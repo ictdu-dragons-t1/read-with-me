@@ -14,9 +14,11 @@
   },
   "dependencies": {
     "@junobuild/core": "^0.0.61",
+    "lucide-react": "^0.447.0",
     "nanoid": "^5.0.7",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2"
   },
   "devDependencies": {
     "@junobuild/config": "^0.0.14",

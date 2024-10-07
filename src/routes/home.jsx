@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { User, Users, Crosshair, Trophy, ShoppingBag, Menu, X, ChevronLeft, ChevronRight, HelpCircle, Settings, Gift, ShoppingCart } from 'lucide-react';
 
-const GameMenu = () => {
+const Home = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [currentBookIndex, setCurrentBookIndex] = useState(0);
 
@@ -173,4 +173,4 @@ const GameMenu = () => {
   );
 };
 
-export default GameMenu;
+export default Home;

@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
+import '@mantine/core/styles.css';
+import { createTheme, MantineProvider } from '@mantine/core';
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -8,7 +10,6 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { Auth, RequireAuth } from "./components/Auth";
-import { createTheme, MantineProvider } from '@mantine/core';
 import Home from "./routes/home";
 import Landing from "./routes/landing";
 

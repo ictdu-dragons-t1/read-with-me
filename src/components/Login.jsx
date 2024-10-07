@@ -1,6 +1,6 @@
 import {signIn} from '@junobuild/core';
 import {Button} from './Button';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 export const Login = () => {
   const navigate = useNavigate();

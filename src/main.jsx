@@ -7,9 +7,14 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
+import { Auth, RequireAuth } from "./components/Auth";
+import { createTheme, MantineProvider } from '@mantine/core';
 import Home from "./routes/home";
 import Landing from "./routes/landing";
-import { Auth, RequireAuth } from "./components/Auth";
+
+const theme = createTheme({
+  fontFamily: 'poppins, sans-serif', 
+});
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +37,8 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <MantineProvider theme={theme}>
+      <RouterProvider router={router} />
+    </MantineProvider>
   </React.StrictMode>
 );

@@ -2,9 +2,7 @@ import {signOut} from '@junobuild/core';
 
 export const Logout = () => {
   const handleSignOut = () => {
-    signOut().then(() => {
-      window.location.reload();
-    });
+    signOut();
   }
 
   return (

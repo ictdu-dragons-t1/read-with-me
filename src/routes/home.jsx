@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { User, Users, Crosshair, Trophy, ShoppingBag, Menu, X, ChevronLeft, ChevronRight, HelpCircle, Settings, Gift, ShoppingCart } from 'lucide-react';
+import { Logout } from "../components/Logout";
 
 const Home = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -139,6 +140,7 @@ const Home = () => {
         <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4 transition-all duration-300 ease-in-out transform hover:scale-110">
           Start Reading
         </button>
+        <Logout />
       </div>
 
       {/* Right Section - Logo, Upgrade, and Shop */}

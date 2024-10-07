@@ -1,4 +1,4 @@
-// import { Login } from "../components/Login";
+import { Login } from "../components/Login";
 
 // Images
 // import bgImage from "../assets/images/BG.png";
@@ -11,6 +11,7 @@ const Landing = () => {
         <h1 className="dark:text-white text-5xl md:text-6xl font-extrabold md:pt-16">
           Read With Me Landing
         </h1>
+        <Login />
       </main>
     </div>
   );

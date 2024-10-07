@@ -1,10 +1,16 @@
 import {signOut} from '@junobuild/core';
 
 export const Logout = () => {
+  const handleSignOut = () => {
+    signOut().then(() => {
+      window.location.reload();
+    });
+  }
+
   return (
     <button
       type="button"
-      onClick={signOut}
+      onClick={handleSignOut}
       className="dark:text-white flex items-center gap-2 mt-24 hover:text-lavender-blue-500 active:text-lavender-blue-400">
       <svg
         xmlns="http://www.w3.org/2000/svg"

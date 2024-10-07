@@ -1,13 +1,21 @@
-import {authSubscribe} from '@junobuild/core';
-import PropTypes from 'prop-types';
-import {createContext, useEffect, useState} from 'react';
-import {Login} from './Login';
-import {Logout} from './Logout';
+import { authSubscribe, initSatellite } from "@junobuild/core";
+import { createContext, useContext, useEffect, useState } from "react";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
 
 export const AuthContext = createContext();
 
-export const Auth = ({children}) => {
+export const Auth = () => {
   const [user, setUser] = useState(undefined);
+
+  useEffect(() => {
+    (async () =>
+      await initSatellite({
+        workers: {
+          auth: true,
+        },
+      }))();
+  }, []);
 
   useEffect(() => {
     const sub = authSubscribe((user) => setUser(user));
@@ -16,20 +24,23 @@ export const Auth = ({children}) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{user}}>
-      {user !== undefined && user !== null ? (
-        <div>
-          {children}
-
-          <Logout />
-        </div>
-      ) : (
-        <Login />
-      )}
+    <AuthContext.Provider value={{ user }}>
+      <Outlet />
     </AuthContext.Provider>
   );
 };
 
-Auth.propTypes = {
-  children: PropTypes.node.isRequired
+export const RequireAuth = ({ children }) => {
+  const { user } = useContext(AuthContext);
+  const location = useLocation();
+
+  if (user === undefined || user === null) {
+    return <Navigate to="/" replace state={{ from: location }} />;
+  }
+
+  return children;
+};
+
+RequireAuth.propTypes = {
+  children: PropTypes.node.isRequired,
 };

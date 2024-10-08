@@ -26,9 +26,9 @@ const router = createBrowserRouter(
         <Route
           path="/home"
           element={
-            <RequireAuth>
+            // <RequireAuth>
               <Home />
-            </RequireAuth>
+            // </RequireAuth>
           }
         />
       </Route>

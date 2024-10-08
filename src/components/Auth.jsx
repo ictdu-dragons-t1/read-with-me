@@ -31,12 +31,12 @@ export const Auth = () => {
 };
 
 export const RequireAuth = ({ children }) => {
-  const { user } = useContext(AuthContext);
-  const location = useLocation();
+  // const { user } = useContext(AuthContext);
+  // const location = useLocation();
 
-  if (user === undefined || user === null) {
-    return <Navigate to="/" replace state={{ from: location }} />;
-  }
+  // if (user === undefined || user === null) {
+  //   return <Navigate to="/" replace state={{ from: location }} />;
+  // }
 
   return children;
 };

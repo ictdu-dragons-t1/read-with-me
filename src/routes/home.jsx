@@ -42,31 +42,31 @@ const GameMenu = () => {
       title: "Pride and Prejudice",
       author: "Jane Austen",
       color: "bg-blue-500",
-      coverImage: alice,
+      coverImage: pride,
     },
     {
       title: "Moby Dick",
       author: "Herman Melville",
       color: "bg-green-500",
-      coverImage: thewar,
+      coverImage: moby,
     },
     {
       title: "Charlotte's Web",
       author: "EB White",
       color: "bg-red-500",
-      coverImage: pride,
+      coverImage: web,
     },
     {
       title: "Alice's Adventures in Wonderland",
       author: "Lewis Carroll",
       color: "bg-yellow-500",
-      coverImage: moby,
+      coverImage: alice,
     },
     {
       title: "The War of the Worlds",
       author: "H.G. Wells",
       color: "bg-purple-500",
-      coverImage: web,
+      coverImage: thewar,
     },
   ];
 
@@ -211,31 +211,30 @@ const GameMenu = () => {
             const totalBooks = books.length;
 
             // Calculate position relative to currentBookIndex, allowing for infinite looping appearance
-            const position =
-              (index - currentBookIndex + totalBooks) % totalBooks;
+            const position = (index - currentBookIndex + totalBooks) % totalBooks;
 
-            const calculateBlur = (position) => {
-              if (position === 2) return 0; // No blur for the center book
-              return position === 1 || position === 3 ? 5 : 10; // Blur more for books further away
+            // Adjust position to move from left to right
+            const adjustedPosition = position <= 2 ? position : position - totalBooks;
+
+            const calculateBlur = (adjustedPosition) => {
+              if (adjustedPosition === 0) return 0; // No blur for the center book
+              return Math.abs(adjustedPosition) === 1 ? 5 : 10; // Blur more for books further away
             };
 
-            const isVisible = position === 2; // Only the center book should be fully visible
-            const isLeftMost = position === 0; // Identify leftmost book
-            const isRightMost = position === 4; // Identify rightmost book
+            const isVisible = adjustedPosition === 0; // Only the center book should be fully visible
+            const isHidden = Math.abs(adjustedPosition) >= 2; // Hide books that are two or more positions away
 
             return (
               <div
                 key={index}
                 className={`absolute top-0 left-0 w-full h-full ${book.color} rounded-lg transition-all duration-300 ease-in-out flex flex-col justify-between p-4`}
                 style={{
-                  // Shift the books to give the infinite loop appearance
-                  transform: `translateX(${(position - 2) * 100}%) scale(${position === 2 ? 1 : 0.8})`, // Center the active book
-                  opacity: isVisible ? 1 : isLeftMost || isRightMost ? 0 : 0.5, // Make only the active book fully visible
-                  zIndex: position === 2 ? 10 : 0, // Bring the active book to the front
-                  filter: `blur(${calculateBlur(position)}px)`,
+                  transform: `translateX(${adjustedPosition * 100}%) scale(${adjustedPosition === 0 ? 1 : 0.8})`,
+                  opacity: isVisible ? 1 : isHidden ? 0 : 0.5,
+                  zIndex: adjustedPosition === 0 ? 10 : 0,
+                  filter: `blur(${calculateBlur(adjustedPosition)}px)`,
                 }}
               >
-                {/* Display different cover images for each book */}
                 <img
                   src={book.coverImage}
                   alt={`Cover of ${book.title}`}

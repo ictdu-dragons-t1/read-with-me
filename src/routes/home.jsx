@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   User,
   Users,
@@ -23,6 +23,11 @@ import thewar from "../assets/images/covers/TheWar.png";
 import pride from "../assets/images/covers/Pride.png";
 import moby from "../assets/images/covers/Moby.png";
 import web from "../assets/images/covers/Web.png";
+import alice2 from "../assets/images/covers/Alice2.png";
+import thewar2 from "../assets/images/covers/TheWar2.png";
+import pride2 from "../assets/images/covers/Pride2.png";
+import moby2 from "../assets/images/covers/Moby2.png";
+import web2 from "../assets/images/covers/Web2.png";
 import shop from "../assets/images/covers/Shop.png";
 import book from "../assets/images/covers/Book.png";
 import profile from "../assets/images/covers/Profile.png";
@@ -30,6 +35,9 @@ import profile from "../assets/images/covers/Profile.png";
 const GameMenu = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [currentBookIndex, setCurrentBookIndex] = useState(0);
+  const [isFading, setIsFading] = useState(false);
+  const [isGenreSelect, setIsGenreSelect] = useState(false);
+  const [isShowingGenre, setIsShowingGenre] = useState(false);
 
   const menuItems = [
     { name: "Solo Play", icon: <User size={24} /> },
@@ -41,34 +49,49 @@ const GameMenu = () => {
 
   const books = [
     {
+      genreSelect: "Select a Genre",
+      genreType: "Choose your adventure!",
       title: "Pride and Prejudice",
       author: "Jane Austen",
       color: "bg-blue-500",
       coverImage: pride,
+      genreImage: pride2,
     },
     {
+      genreSelect: "Select a Genre",
+      genreType: "Choose your adventure!",
       title: "Moby Dick",
       author: "Herman Melville",
       color: "bg-green-500",
       coverImage: moby,
+      genreImage: moby2,
     },
     {
+      genreSelect: "Select a Genre",
+      genreType: "Choose your adventure!",
       title: "Charlotte's Web",
       author: "EB White",
       color: "bg-red-500",
       coverImage: web,
+      genreImage: web2,
     },
     {
+      genreSelect: "Select a Genre",
+      genreType: "Choose your adventure!",
       title: "Alice's Adventures in Wonderland",
       author: "Lewis Carroll",
       color: "bg-yellow-500",
       coverImage: alice,
+      genreImage: alice2,
     },
     {
+      genreSelect: "Select a Genre",
+      genreType: "Choose your adventure!",
       title: "The War of the Worlds",
       author: "H.G. Wells",
       color: "bg-purple-500",
       coverImage: thewar,
+      genreImage: thewar2,
     },
   ];
 
@@ -89,6 +112,22 @@ const GameMenu = () => {
     );
   };
 
+  const handleStartReading = () => {
+    setIsFading(true); // Start the fade effect
+    setTimeout(() => {
+      setIsGenreSelect(true);
+      setIsShowingGenre(true); // Show genre image after fade
+    }, 300); // Delay to allow fade-out effect
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextBook();
+    }, 7000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const registration = {
       firstName: 'asd',
       lastName: '',
@@ -103,6 +142,11 @@ const GameMenu = () => {
         {/* Hard line at the top with a fading gradient below */}
         <div className='w-full h-full border-t-2 border-[#7592ba] bg-gradient-to-b from-[#7592ba] via-transparent to-transparent opacity-10'></div>
       </div>
+      {/* Side gradients to hide hard line*/}
+      <div className='fixed z-20 h-full w-full hidden lg:flex lg:w-1/4 flex-col p-4 overflow-y-auto bg-gradient-to-r from-[#0f1433]'></div>
+      <div className='fixed z-20 h-full w-full hidden lg:flex lg:w-1/4 flex-col p-4 overflow-y-auto bg-gradient-to-r from-[#0f1433]'></div>
+      <div className='fixed z-20 h-full w-full hidden right-0 lg:flex lg:w-1/4 flex-col p-4 overflow-y-auto bg-gradient-to-l from-[#0f1433]'></div>
+      <div className='fixed z-20 h-full w-full hidden right-0 lg:flex lg:w-1/4 flex-col p-4 overflow-y-auto bg-gradient-to-l from-[#0f1433]'></div>
       {/* Mobile Header */}
       <div className='lg:hidden flex justify-between items-center p-4 bg-purple-800'>
         <h1 className='text-xl font-semibold italic'>RW/M</h1>
@@ -145,10 +189,10 @@ const GameMenu = () => {
       </div>
 
       {/* Left Section - Profile and Menu (Desktop) */}
-      <div className='z-20 hidden lg:flex lg:w-1/4 flex-col p-4 overflow-y-auto bg-gradient-to-r from-black'>
+      <div className='z-20 hidden w-full lg:flex lg:w-1/4 flex-col p-4 overflow-y-auto bg-gradient-to-r from-black ${isGenreSelect ? "lg:w-1/6" : ""}'>
         {/* Profile Section */}
         <div className='p-4 rounded-lg flex items-center justify-between w-full'>
-          <img src={profile} alt='' className="absolute w-10 top-6" />
+          <img src={profile} alt='' className='absolute w-10 top-6' />
           <div className='bg-gray-700 rounded-full p-1 mr-4'>
             <div className='w-12 h-12 bg-gray-500 rounded-full' />
           </div>
@@ -159,7 +203,6 @@ const GameMenu = () => {
               RWMDevTeam
             </h2>
             <div className='flex flex-row h-8 items-baseline justify-start'>
-              {" "}
               {/* Level */}
               <span className='text-[#e6a33e] mr-2 text-xs font-semibold'>
                 LVL1
@@ -186,46 +229,73 @@ const GameMenu = () => {
         </div>
 
         {/* Desktop Menu Items */}
-        <div className='fixed z-50 h-5/6 flex flex-col items-center justify-around mt-8 py-32 '>
-          {menuItems.map((item, index) => (
-            <button
-              key={index}
-              className='flex items-center space-x-2 hover:text-[#e6a33e] w-full text-left p-2 transition-all duration-300 ease-in-out transform hover:scale-110 origin-left'
-            >
-              {item.icon}
-              <span className='italic font-semibold text-xl lg:text-4xl tracking-tight'>
-                {item.name.toUpperCase()}
-              </span>
-            </button>
-          ))}
-        </div>
+        {!isGenreSelect && (
+          <div className='fixed z-50 h-5/6 flex flex-col items-center justify-around mt-8 py-32 '>
+            {menuItems.map((item, index) => (
+              <button
+                key={index}
+                className='flex items-center space-x-2 hover:text-[#e6a33e] w-full text-left p-2 transition-all duration-300 ease-in-out transform hover:scale-110 origin-left'
+              >
+                {item.icon}
+                <span className='italic font-semibold text-xl lg:text-4xl tracking-tight'>
+                  {item.name.toUpperCase()}
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Middle Section - Book Carousel with Progressive Blur */}
       <div className='lg:w-1/2 right-4 mt-6 lg:mt-6 flex flex-col items-center justify-center p-4 relative'>
-
         {/* Book Titles and Authors */}
-        <div className='ml-7 text-center'>
-          <h2 className='text-xl font-bold italic text-white'>
-            {books[currentBookIndex].title}
-          </h2>
-          <p className='text-lg text-[#e6a33e] italic'>
-            {books[currentBookIndex].author}
-          </p>
+        <div className='ml-10 text-center'>
+          {!isShowingGenre ? (
+            <>
+              <h2
+                className={`text-xl font-bold italic text-white transition-opacity duration-300 ${isFading ? "opacity-0" : "opacity-100"}`}
+              >
+                {books[currentBookIndex].title}
+              </h2>
+              <p
+                className={`text-lg text-[#e6a33e] italic transition-opacity duration-300 ${isFading ? "opacity-0" : "opacity-100"}`}
+              >
+                {books[currentBookIndex].author}
+              </p>
+            </>
+          ) : (
+            <>
+              <h2
+                className={`text-xl font-bold italic text-white transition-opacity duration-300 ${!isFading ? "opacity-100" : "opacity-100"}`}
+              >
+                {books[currentBookIndex].genreSelect}{" "}
+                {/* This should now refer to the correct book's genre */}
+              </h2>
+              <p
+                className={`text-lg text-[#e6a33e] italic transition-opacity duration-300 ${!isFading ? "opacity-100" : "opacity-100"}`}
+              >
+                {books[currentBookIndex].genreType}{" "}
+                {/* This should now refer to the correct book's genre */}
+              </p>
+            </>
+          )}
         </div>
 
         {/* Books Display */}
-        <div className='relative w-80 h-96 mb-16'>
+        <div className='relative ml-3 w-80 h-96 mb-16'>
           {books.map((book, index) => {
             const totalBooks = books.length;
 
             // Calculate position relative to currentBookIndex, allowing for infinite looping appearance
-            const position = (index - currentBookIndex + totalBooks) % totalBooks;
+            const position =
+              (index - currentBookIndex + totalBooks) % totalBooks;
 
             // Adjust position to move from left to right
-            const adjustedPosition = position <= 2 ? position : position - totalBooks;
+            const adjustedPosition =
+              position <= 2 ? position : position - totalBooks;
 
             const calculateBlur = (adjustedPosition) => {
+              if (isGenreSelect) return 0; // No blur in grid mode
               if (adjustedPosition === 0) return 0; // No blur for the center book
               return Math.abs(adjustedPosition) === 1 ? 5 : 10; // Blur more for books further away
             };
@@ -236,45 +306,60 @@ const GameMenu = () => {
             return (
               <div
                 key={index}
-                className={`absolute top-0 left-0 w-full h-full ${book.color} rounded-lg transition-all duration-300 ease-in-out flex flex-col justify-between p-4`}
+                className={
+                  "absolute top-0 left-0 w-full h-full ${book.color} rounded-lg transition-all duration-300 ease-in-out flex flex-col justify-between p-4"
+                }
                 style={{
                   transform: `translateX(${adjustedPosition * 100}%) scale(${adjustedPosition === 0 ? 1 : 0.8})`,
                   opacity: isVisible ? 1 : isHidden ? 0 : 0.5,
                   zIndex: adjustedPosition === 0 ? 10 : 0,
                   filter: `blur(${calculateBlur(adjustedPosition)}px)`,
+                  position: "absolute", // Static positioning for grid layout
                 }}
               >
+                {/* Genre Image that stays visible */}
+                <img
+                  src={book.genreImage}
+                  alt={`Genre of ${book.title}`}
+                  className={`fixed left-[11px] w-full h-full object-cover rounded-md transition-opacity duration-300 ${isFading ? "opacity-300" : "opacity-0"}`} // Genre image remains fully visible
+                />
+                {/* Cover Image that fades out */}
                 <img
                   src={book.coverImage}
                   alt={`Cover of ${book.title}`}
-                  className='fixed w-full h-full object-cover rounded-md'
+                  className={`fixed w-full h-full object-cover rounded-md transition-opacity duration-300 ${isFading ? "opacity-0" : "opacity-100"}`} // Fade out coverImage
                 />
               </div>
             );
           })}
         </div>
 
-        <div className='absolute ml-5 mb-10 flex space-x-80'>
-          <button
-            onClick={prevBook}
-            className=' text-white font-bold py-2 px-4 rounded'
-          >
-            <ChevronLeft size={48} />
-          </button>
-          <button
-            onClick={nextBook}
-            className=' text-white font-bold py-2 px-4 rounded'
-          >
-            <ChevronRight size={48} />
-          </button>
-        </div>
-        <button className='lg:opacity-100 opacity-0 relative bg-lavender-blue-700 hover:bg-lavender-blue-800 border border-spacing-1 border-lavender-blue-600 bg-gradient-to-t from-lavender-blue-500 text-sm lg:text-lg text-white font-bold italic bottom-[-30px] ml-5 px-3 lg:px-4 rounded-2xl'>
-          Start Reading
+        {/* Navigation and Button */}
+          <div className='absolute ml-8 mb-10 flex space-x-80'>
+            <button
+              onClick={prevBook}
+              className=' text-white font-bold py-2 px-4 rounded'
+            >
+              <ChevronLeft size={48} />
+            </button>
+            <button
+              onClick={nextBook}
+              className=' text-white font-bold py-2 px-4 rounded'
+            >
+              <ChevronRight size={48} />
+            </button>
+          </div>
+
+        <button
+          onClick={handleStartReading}
+          className='lg:opacity-100 opacity-0 relative bg-lavender-blue-700 hover:bg-lavender-blue-800 border border-spacing-1 border-lavender-blue-600 bg-gradient-to-t from-lavender-blue-500 text-sm lg:text-lg text-white font-bold italic bottom-[-30px] ml-5 px-3 lg:px-4 rounded-2xl'
+        >
+          Quick Play
         </button>
       </div>
 
       {/* Right Section - Logo, Upgrade, and Shop */}
-      <div className='lg:w-1/4 flex flex-col items-center lg:items-end justify-between p-4'>
+      <div className='lg:w-1/4 z-50 flex flex-col items-center lg:items-end justify-between p-4'>
         <div className='hidden lg:flex lg:flex-col items-end mb-4'>
           <h1 className='text-3xl italic font-bold mb-4'>RW/M</h1>
           <button className='flex flex-row border border-spacing-1 border-[#696969] bg-[#0b0c1f] bg-gradient-to-t from-[#193909] rounded-lg shadow-lg font-bold py-2 px-4 mb-4'>
@@ -289,7 +374,7 @@ const GameMenu = () => {
         </div>
 
         {/* Chapter of the Day Section */}
-        <div className='fixed bottom-4 left-auto right-auto flex flex-row border border-spacing-1 border-[#696969] bg-[#0b0c1f] bg-gradient-to-t from-[#1f2039] rounded-lg shadow-lg lg:w-auto lg:pl-28 p-2 lg:p-4 mb-16 lg:mb-0'>
+        <div className='fixed z-50 bottom-4 lg:h-24 lg:w-[410px] left-auto right-auto flex flex-row border border-spacing-1 border-[#696969] bg-[#0b0c1f] bg-gradient-to-t from-[#1f2039] rounded-lg shadow-lg lg:pl-28 p-2 lg:p-4 mb-16 lg:mb-0'>
           <div className='flex flex-col pl-2'>
             <img
               src={book}

@@ -181,7 +181,7 @@ const GameMenu = () => {
               key={index}
               className='flex items-center italic font-semibold space-x-2 hover:text-[#e6a33e] text-left p-2 transition-all duration-300 ease-in-out transform hover:scale-110'
             >
-              {item.icon}
+              {item.icon}`
               <span>{item.name}</span>
             </button>
           ))}

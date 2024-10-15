@@ -38,7 +38,7 @@ import robinson from "../assets/images/covers/Robinson.png";
 import add from "../assets/images/covers/Add.png";
 import RegistrationModal from "../components/RegistrationModal";
 
-const GameMenu = () => {
+const Home = () => {
   const [isGridVisible, setIsGridVisible] = useState(false); // For toggling the book grid
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [currentBookIndex, setCurrentBookIndex] = useState(0);
@@ -497,4 +497,4 @@ const GameMenu = () => {
   );
 };
 
-export default GameMenu;
+export default Home;

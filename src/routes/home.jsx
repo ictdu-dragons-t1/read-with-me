@@ -29,8 +29,16 @@ import web2 from "../assets/images/covers/Web2.png";
 import shop from "../assets/images/covers/Shop.png";
 import book from "../assets/images/covers/Book.png";
 import profile from "../assets/images/covers/Profile.png";
+import treasure from "../assets/images/covers/Treasure.png";
+import jungle from "../assets/images/covers/Jungle.png";
+import peter from "../assets/images/covers/Peter.png";
+import sawyer from "../assets/images/covers/Sawyer.png";
+import wild from "../assets/images/covers/Wild.png";
+import robinson from "../assets/images/covers/Robinson.png";
+import add from "../assets/images/covers/Add.png";
 
 const GameMenu = () => {
+  const [isGridVisible, setIsGridVisible] = useState(false); // For toggling the book grid
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [currentBookIndex, setCurrentBookIndex] = useState(0);
   const [isFading, setIsFading] = useState(false);
@@ -40,7 +48,7 @@ const GameMenu = () => {
   const menuItems = [
     { name: "Solo Play", icon: <User size={24} /> },
     { name: "Team Play", icon: <Users size={24} /> },
-    { name: "Battle Royale", icon: <Crosshair size={24} /> },
+    { name: "Time Attack", icon: <Crosshair size={24} /> },
     { name: "Leaderboard", icon: <Trophy size={24} /> },
     { name: "Shop", icon: <ShoppingBag size={24} /> },
   ];
@@ -110,19 +118,22 @@ const GameMenu = () => {
     );
   };
 
-  const handleStartReading = () => {
-    setIsFading(true); // Start the fade effect
+  const handleStartReading = (clickedImage) => {
+    setIsFading(true);
+
     setTimeout(() => {
       setIsGenreSelect(true);
-      setIsShowingGenre(true); // Show genre image after fade
-    }, 300); // Delay to allow fade-out effect
+
+      setIsShowingGenre(true);
+
+      if (clickedImage === alice2) {
+        setIsGridVisible(true);
+      }
+    }, 300);
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      nextBook();
-    }, 7000);
-
+    const interval = setInterval(nextBook, 7000);
     return () => clearInterval(interval);
   }, []);
 
@@ -238,7 +249,7 @@ const GameMenu = () => {
       </div>
 
       {/* Middle Section - Book Carousel with Progressive Blur */}
-      <div className='lg:w-1/2 right-4 mt-6 lg:mt-6 flex flex-col items-center justify-center p-4 relative'>
+      <div className='lg:w-1/2 right-4 flex flex-col items-center justify-center p-4 relative'>
         {/* Book Titles and Authors */}
         <div className='ml-10 text-center'>
           {!isShowingGenre ? (
@@ -255,77 +266,155 @@ const GameMenu = () => {
               </p>
             </>
           ) : (
-            <>
-              <h2
-                className={`text-xl font-bold italic text-white transition-opacity duration-300 ${!isFading ? "opacity-100" : "opacity-100"}`}
-              >
-                {books[currentBookIndex].genreSelect}{" "}
-                {/* This should now refer to the correct book's genre */}
-              </h2>
-              <p
-                className={`text-lg text-[#e6a33e] italic transition-opacity duration-300 ${!isFading ? "opacity-100" : "opacity-100"}`}
-              >
-                {books[currentBookIndex].genreType}{" "}
-                {/* This should now refer to the correct book's genre */}
-              </p>
-            </>
+            !isGridVisible && (
+              <>
+                <h2
+                  className={`text-xl font-bold italic text-white transition-opacity duration-300 ${!isFading ? "opacity-100" : "opacity-100"}`}
+                >
+                  {books[currentBookIndex].genreSelect}{" "}
+                  {/* This should now refer to the correct book's genre */}
+                </h2>
+                <p
+                  className={`text-lg text-[#e6a33e] italic transition-opacity duration-300 ${!isFading ? "opacity-100" : "opacity-100"}`}
+                >
+                  {books[currentBookIndex].genreType}{" "}
+                  {/* This should now refer to the correct book's genre */}
+                </p>
+              </>
+            )
           )}
         </div>
 
         {/* Books Display */}
-        <div className='relative ml-3 w-80 h-96 mb-16'>
-          {books.map((book, index) => {
-            const totalBooks = books.length;
+        {!isGridVisible && (
+          <div className='relative rounded-4xl ml-3 w-[300px] h-96 mb-16'>
+            {books.map((book, index) => {
+              const totalBooks = books.length;
 
-            // Calculate position relative to currentBookIndex, allowing for infinite looping appearance
-            const position =
-              (index - currentBookIndex + totalBooks) % totalBooks;
+              // Calculate position relative to currentBookIndex, allowing for infinite looping appearance
+              const position =
+                (index - currentBookIndex + totalBooks) % totalBooks;
 
-            // Adjust position to move from left to right
-            const adjustedPosition =
-              position <= 2 ? position : position - totalBooks;
+              // Adjust position to move from left to right
+              const adjustedPosition =
+                position <= 2 ? position : position - totalBooks;
 
-            const calculateBlur = (adjustedPosition) => {
-              if (isGenreSelect) return 0; // No blur in grid mode
-              if (adjustedPosition === 0) return 0; // No blur for the center book
-              return Math.abs(adjustedPosition) === 1 ? 5 : 10; // Blur more for books further away
-            };
+              const calculateBlur = (adjustedPosition) => {
+                if (isGenreSelect) return 0; // No blur in grid mode
+                if (adjustedPosition === 0) return 0; // No blur for the center book
+                return Math.abs(adjustedPosition) === 1 ? 5 : 10; // Blur more for books further away
+              };
 
-            const isVisible = adjustedPosition === 0; // Only the center book should be fully visible
-            const isHidden = Math.abs(adjustedPosition) >= 2; // Hide books that are two or more positions away
+              const isVisible = adjustedPosition === 0; // Only the center book should be fully visible
+              const isHidden = Math.abs(adjustedPosition) >= 2; // Hide books that are two or more positions away
 
-            return (
-              <div
-                key={index}
-                className={
-                  "absolute top-0 left-0 w-full h-full ${book.color} rounded-lg transition-all duration-300 ease-in-out flex flex-col justify-between p-4"
-                }
-                style={{
-                  transform: `translateX(${adjustedPosition * 100}%) scale(${adjustedPosition === 0 ? 1 : 0.8})`,
-                  opacity: isVisible ? 1 : isHidden ? 0 : 0.5,
-                  zIndex: adjustedPosition === 0 ? 10 : 0,
-                  filter: `blur(${calculateBlur(adjustedPosition)}px)`,
-                  position: "absolute", // Static positioning for grid layout
-                }}
-              >
-                {/* Genre Image that stays visible */}
-                <img
-                  src={book.genreImage}
-                  alt={`Genre of ${book.title}`}
-                  className={`fixed left-[11px] w-full h-full object-cover rounded-md transition-opacity duration-300 ${isFading ? "opacity-300" : "opacity-0"}`} // Genre image remains fully visible
-                />
-                {/* Cover Image that fades out */}
-                <img
-                  src={book.coverImage}
-                  alt={`Cover of ${book.title}`}
-                  className={`fixed w-full h-full object-cover rounded-md transition-opacity duration-300 ${isFading ? "opacity-0" : "opacity-100"}`} // Fade out coverImage
-                />
-              </div>
-            );
-          })}
-        </div>
+              return (
+                <div
+                  key={index}
+                  className={`
+          absolute top-0 left-0 w-full h-full ${book.color} rounded-lg
+          transition-all duration-300 ease-in-out flex flex-col justify-between p-4
+          ${adjustedPosition === 0 ? "cursor-pointer" : ""}  // Add cursor for the center book
+        `}
+                  style={{
+                    transform: `translateX(${adjustedPosition * 100}%) scale(${
+                      adjustedPosition === 0 ? 1 : 0.8
+                    })`,
+                    opacity: isVisible ? 1 : isHidden ? 0 : 0.5,
+                    zIndex: adjustedPosition === 0 ? 10 : 0,
+                    filter: `blur(${calculateBlur(adjustedPosition)}px)`,
+                  }}
+                  onClick={() => handleStartReading(book.genreImage)} // Use a generic click handler for all books
+                >
+                  {/* Genre Image */}
+                  <img
+                    src={book.genreImage}
+                    alt={`Genre of ${book.title}`}
+                    className={`fixed w-full h-full object-cover rounded-md transition-opacity duration-300 ${isFading ? "opacity-300" : "opacity-0"}`}
+                  />
+
+                  {/* Cover Image */}
+                  <img
+                    src={book.coverImage}
+                    alt={`Cover of ${book.title}`}
+                    className={`fixed w-full h-full object-cover rounded-md transition-opacity duration-300 ${isFading ? "opacity-0" : "opacity-100"}`}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Book Grid - Only visible when isGridVisible is true */}
+        {isGridVisible && (
+          <div className='absolute transform -translate-y-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-8 gap-x-10 px-4 py-8'>
+            {/* Card 1: Alice's Adventures in Wonderland */}
+            <img
+              src={alice}
+              alt="Alice's Adventures in Wonderland"
+              className='object-cover rounded-md cursor-pointer'
+              onClick={() => handleStorySelect("alice")}
+            />
+
+            {/* Card 2: The War of the Worlds */}
+            <img
+              src={add}
+              alt='Add'
+              className='object-cover rounded-md cursor-pointer'
+            />
+
+            {/* Card 3: Treasure Island */}
+            <img
+              src={treasure}
+              alt='Treasure Island'
+              className='object-cover rounded-md cursor-pointer'
+              onClick={() => handleStorySelect("treasure")}
+            />
+
+            {/* Card 4: The Jungle Book */}
+            <img
+              src={jungle}
+              alt='The Jungle Book'
+              className='object-cover rounded-md cursor-pointer'
+              onClick={() => handleStorySelect("jungle")}
+            />
+
+            {/* Card 5: Peter Pan */}
+            <img
+              src={peter}
+              alt='Peter Pan'
+              className='object-cover rounded-md cursor-pointer'
+              onClick={() => handleStorySelect("peter")}
+            />
+
+            {/* Card 6: The Adventures of Tom Sawyer */}
+            <img
+              src={sawyer}
+              alt='The Adventures of Tom Sawyer'
+              className='object-cover rounded-md cursor-pointer'
+              onClick={() => handleStorySelect("sawyer")}
+            />
+
+            {/* Card 7: The Call of the Wild */}
+            <img
+              src={wild}
+              alt='The Call of the Wild'
+              className='object-cover rounded-md cursor-pointer'
+              onClick={() => handleStorySelect("wild")}
+            />
+
+            {/* Card 8: The Swiss Family Robinson */}
+            <img
+              src={robinson}
+              alt='The Swiss Family Robinson'
+              className='object-cover rounded-md cursor-pointer'
+              onClick={() => handleStorySelect("robinson")}
+            />
+          </div>
+        )}
 
         {/* Navigation and Button */}
+        {!isGridVisible && (
           <div className='absolute ml-8 mb-10 flex space-x-80'>
             <button
               onClick={prevBook}
@@ -340,13 +429,16 @@ const GameMenu = () => {
               <ChevronRight size={48} />
             </button>
           </div>
+        )}
 
-        <button
-          onClick={handleStartReading}
-          className='lg:opacity-100 opacity-0 relative bg-lavender-blue-700 hover:bg-lavender-blue-800 border border-spacing-1 border-lavender-blue-600 bg-gradient-to-t from-lavender-blue-500 text-sm lg:text-lg text-white font-bold italic bottom-[-30px] ml-5 px-3 lg:px-4 rounded-2xl'
-        >
-          Quick Play
-        </button>
+        {!isGridVisible && (
+          <button
+            onClick={handleStartReading}
+            className='lg:opacity-100 opacity-0 relative bg-lavender-blue-700 hover:bg-lavender-blue-800 border border-spacing-1 border-lavender-blue-600 bg-gradient-to-t from-lavender-blue-500 text-sm lg:text-lg text-white font-bold italic bottom-[-30px] ml-8 px-3 lg:px-4 rounded-2xl'
+          >
+            Quick Play
+          </button>
+        )}
       </div>
 
       {/* Right Section - Logo, Upgrade, and Shop */}

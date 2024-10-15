@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.card {
+    @apply flex flex-col items-center justify-center shadow-lg rounded-md overflow-hidden cursor-pointer;
+    height: 300px;
+  }
+  
+  .card img {
+    @apply w-full h-3/4 object-cover rounded-t-md;
+  }
+  
+  .card-title {
+    @apply text-center text-lg font-semibold mt-2;
+  }
+  
+  .blank-card {
+    @apply bg-lavender-blue-200 cursor-not-allowed;
+  }
+  

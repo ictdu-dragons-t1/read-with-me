@@ -7,7 +7,6 @@ const NavBar = () => {
     <>
         <div className='mx-auto max-w-screen-2xl py-10 px-10 md:px-24 flex justify-between items-center w-full text-white text-base'>
             <p className='font-semibold italic'>RW/M</p>
-
             <div className='flex space-x-4'>
                 <p>Home</p>
                 <p>About</p>

@@ -16,6 +16,8 @@ import {
   ShoppingCart,
 } from "lucide-react";
 
+import Registration from "../components/Registration";
+
 import alice from "../assets/images/covers/Alice.png";
 import thewar from "../assets/images/covers/TheWar.png";
 import pride from "../assets/images/covers/Pride.png";
@@ -137,8 +139,15 @@ const GameMenu = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const registration = {
+      firstName: 'asd',
+      lastName: '',
+      userName: 'asdas',
+    }
+        
   return (
     <div className='flex flex-col lg:flex-row h-screen w-screen bg-purple-900 text-white bg-[#0f1433] overflow-hidden'>
+      <Registration data={registration} />
       {/* Floor Effect - Below the books */}
       <div className='fixed w-full h-32 bottom-0 mt-2'>
         {/* Hard line at the top with a fading gradient below */}
@@ -183,7 +192,7 @@ const GameMenu = () => {
               key={index}
               className='flex items-center italic font-semibold space-x-2 hover:text-[#e6a33e] text-left p-2 transition-all duration-300 ease-in-out transform hover:scale-110'
             >
-              {item.icon}
+              {item.icon}`
               <span>{item.name}</span>
             </button>
           ))}

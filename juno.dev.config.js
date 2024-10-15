@@ -6,7 +6,7 @@ export default defineDevConfig(() => ({
     collections: {
       datastore: [
         {
-          collection: 'notes',
+          collection: 'user_data',
           read: 'managed',
           write: 'managed',
           memory: 'stable',
@@ -14,13 +14,13 @@ export default defineDevConfig(() => ({
         }
       ],
       storage: [
-        {
-          collection: 'images',
-          read: 'managed',
-          write: 'managed',
-          memory: 'stable',
-          mutablePermissions: true
-        }
+        // {
+        //   collection: 'images',
+        //   read: 'managed',
+        //   write: 'managed',
+        //   memory: 'stable',
+        //   mutablePermissions: true
+        // }
       ]
     }
   }

@@ -7,7 +7,6 @@ import About from "../layouts/landing/About";
 import bgImage from "../assets/images/BG.png";
 import { useAuth } from "../hooks/useAuth";
 import { Navigate } from "react-router-dom";
-import DocumentScanner from "../components/DocumentScanner";
 
 const Landing = () => {
   const { user } = useAuth();
@@ -24,7 +23,6 @@ const Landing = () => {
           <Home />
           <About />
         </BackgroundImage>
-        <DocumentScanner />
       </div>
     </>
   );

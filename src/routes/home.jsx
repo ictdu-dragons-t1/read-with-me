@@ -140,11 +140,11 @@ const GameMenu = () => {
   }, []);
 
   const registration = {
-      firstName: 'asd',
-      lastName: '',
-      userName: 'asdas',
-    }
-        
+    firstName: "asd",
+    lastName: "",
+    userName: "asdas",
+  };
+
   return (
     <div className='flex flex-col lg:flex-row h-screen w-screen bg-purple-900 text-white bg-[#0f1433] overflow-hidden'>
       <Registration data={registration} />
@@ -192,8 +192,7 @@ const GameMenu = () => {
               key={index}
               className='flex items-center italic font-semibold space-x-2 hover:text-[#e6a33e] text-left p-2 transition-all duration-300 ease-in-out transform hover:scale-110'
             >
-              {item.icon}`
-              <span>{item.name}</span>
+              {item.icon}`<span>{item.name}</span>
             </button>
           ))}
         </div>
@@ -339,7 +338,7 @@ const GameMenu = () => {
                   <img
                     src={book.genreImage}
                     alt={`Genre of ${book.title}`}
-                    className={`fixed w-full h-full object-cover rounded-md transition-opacity duration-300 ${isFading ? "opacity-300" : "opacity-0"}`}
+                    className={`fixed w-full h-full object-cover rounded-md transition-opacity duration-300 ${isFading ? "opacity-300" : "hidden"}`}
                   />
 
                   {/* Cover Image */}
@@ -356,70 +355,66 @@ const GameMenu = () => {
 
         {/* Book Grid - Only visible when isGridVisible is true */}
         {isGridVisible && (
-          <div className='absolute transform -translate-y-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-8 gap-x-10 px-4 py-8'>
-            {/* Card 1: Alice's Adventures in Wonderland */}
-            <img
-              src={alice}
-              alt="Alice's Adventures in Wonderland"
-              className='object-cover rounded-md cursor-pointer'
-              onClick={() => handleStorySelect("alice")}
-            />
-
-            {/* Card 2: The War of the Worlds */}
-            <img
-              src={add}
-              alt='Add'
-              className='object-cover rounded-md cursor-pointer'
-            />
-
-            {/* Card 3: Treasure Island */}
-            <img
-              src={treasure}
-              alt='Treasure Island'
-              className='object-cover rounded-md cursor-pointer'
-              onClick={() => handleStorySelect("treasure")}
-            />
-
-            {/* Card 4: The Jungle Book */}
-            <img
-              src={jungle}
-              alt='The Jungle Book'
-              className='object-cover rounded-md cursor-pointer'
-              onClick={() => handleStorySelect("jungle")}
-            />
-
-            {/* Card 5: Peter Pan */}
-            <img
-              src={peter}
-              alt='Peter Pan'
-              className='object-cover rounded-md cursor-pointer'
-              onClick={() => handleStorySelect("peter")}
-            />
-
-            {/* Card 6: The Adventures of Tom Sawyer */}
-            <img
-              src={sawyer}
-              alt='The Adventures of Tom Sawyer'
-              className='object-cover rounded-md cursor-pointer'
-              onClick={() => handleStorySelect("sawyer")}
-            />
-
-            {/* Card 7: The Call of the Wild */}
-            <img
-              src={wild}
-              alt='The Call of the Wild'
-              className='object-cover rounded-md cursor-pointer'
-              onClick={() => handleStorySelect("wild")}
-            />
-
-            {/* Card 8: The Swiss Family Robinson */}
-            <img
-              src={robinson}
-              alt='The Swiss Family Robinson'
-              className='object-cover rounded-md cursor-pointer'
-              onClick={() => handleStorySelect("robinson")}
-            />
-          </div>
+          <div className="fixed ml-10 lg:top-12 md:top-12 top-24 text-xl left-auto right-auto font-bold italic text-white transition-opacity duration-300">Select a Story</div>
+        )}
+        {isGridVisible && (
+            <div className='fixed lg:w-full md:w-[600px] w-[450px] max-w-[800px] z-20 transform lg:top-[15%] top-[45%] left-[50%] translate-x-[-50%] translate-y-[-50%] lg:left-auto lg:translate-x-4 lg:translate-y-0 grid grid-cols-4 gap-y-6 lg:gap-x-8 gap-x-4'>
+              {/* Card 1: Alice's Adventures in Wonderland */}
+              <img
+                src={alice}
+                alt="Alice's Adventures in Wonderland"
+                className='object-cover rounded-md cursor-pointer'
+                onClick={() => handleStorySelect("alice")}
+              />
+              {/* Card 2: The War of the Worlds */}
+              <img
+                src={add}
+                alt='Add'
+                className='object-cover rounded-md cursor-pointer'
+              />
+              {/* Card 3: Treasure Island */}
+              <img
+                src={treasure}
+                alt='Treasure Island'
+                className='object-cover rounded-md cursor-pointer'
+                onClick={() => handleStorySelect("treasure")}
+              />
+              {/* Card 4: The Jungle Book */}
+              <img
+                src={jungle}
+                alt='The Jungle Book'
+                className='object-cover rounded-md cursor-pointer'
+                onClick={() => handleStorySelect("jungle")}
+              />
+              {/* Card 5: Peter Pan */}
+              <img
+                src={peter}
+                alt='Peter Pan'
+                className='object-cover rounded-md cursor-pointer'
+                onClick={() => handleStorySelect("peter")}
+              />
+              {/* Card 6: The Adventures of Tom Sawyer */}
+              <img
+                src={sawyer}
+                alt='The Adventures of Tom Sawyer'
+                className='object-cover rounded-md cursor-pointer'
+                onClick={() => handleStorySelect("sawyer")}
+              />
+              {/* Card 7: The Call of the Wild */}
+              <img
+                src={wild}
+                alt='The Call of the Wild'
+                className='object-cover rounded-md cursor-pointer'
+                onClick={() => handleStorySelect("wild")}
+              />
+              {/* Card 8: The Swiss Family Robinson */}
+              <img
+                src={robinson}
+                alt='The Swiss Family Robinson'
+                className='object-cover rounded-md cursor-pointer'
+                onClick={() => handleStorySelect("robinson")}
+              />
+            </div>
         )}
 
         {/* Navigation and Button */}

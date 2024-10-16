@@ -16,8 +16,6 @@ import {
   ShoppingCart,
 } from "lucide-react";
 
-import Registration from "../components/Registration";
-
 import alice from "../assets/images/covers/Alice.png";
 import thewar from "../assets/images/covers/TheWar.png";
 import pride from "../assets/images/covers/Pride.png";
@@ -38,8 +36,9 @@ import sawyer from "../assets/images/covers/Sawyer.png";
 import wild from "../assets/images/covers/Wild.png";
 import robinson from "../assets/images/covers/Robinson.png";
 import add from "../assets/images/covers/Add.png";
+import RegistrationModal from "../components/RegistrationModal";
 
-const GameMenu = () => {
+const Home = () => {
   const [isGridVisible, setIsGridVisible] = useState(false); // For toggling the book grid
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [currentBookIndex, setCurrentBookIndex] = useState(0);
@@ -147,7 +146,7 @@ const GameMenu = () => {
 
   return (
     <div className='flex flex-col lg:flex-row h-screen w-screen bg-purple-900 text-white bg-[#0f1433] overflow-hidden'>
-      <Registration data={registration} />
+      <RegistrationModal />
       {/* Floor Effect - Below the books */}
       <div className='fixed w-full h-32 bottom-0 mt-2'>
         {/* Hard line at the top with a fading gradient below */}
@@ -499,4 +498,4 @@ const GameMenu = () => {
   );
 };
 
-export default GameMenu;
+export default Home;

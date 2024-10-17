@@ -1,81 +1,36 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Camera as CameraPro } from "react-camera-pro";
 import { Camera, RotateCcw, Save, Upload, X } from "lucide-react";
 import PropTypes from "prop-types";
-import { createWorker } from "tesseract.js";
+import { uploadScannedDoc } from "../utils/junoUtils";
 
-const DocumentScannerModal = ({ isOpen, onClose, onDocumentScanned }) => {
+const DocumentScannerModal = ({ isOpen, onClose, onSave }) => {
   const [image, setImage] = useState(null);
   const [imageSource, setImageSource] = useState("camera");
-  const [extractedText, setExtractedText] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const fileInputRef = useRef(null);
   const cameraRef = useRef(null);
-  const workerRef = useRef(null);
 
-  useEffect(() => {
-    initializeWorker();
-    return () => {
-      if (workerRef.current) {
-        workerRef.current.terminate();
-      }
-    };
-  }, []);
-
-  const initializeWorker = async () => {
-    const worker = await createWorker("eng");
-    workerRef.current = worker;
-  };
-
-  const processExtractedText = (text) => {
-    // Split the text into words
-    const words = text.split(/\s+/);
-
-    // Filter out non-word strings and very short strings
-    const filteredWords = words.filter((word) => {
-      // Remove any non-alphanumeric characters
-      const cleanWord = word.replace(/[^a-zA-Z0-9]/g, "");
-      // Check if the cleaned word is at least 2 characters long and contains at least one letter
-      return cleanWord.length >= 2 && /[a-zA-Z]/.test(cleanWord);
-    });
-
-    // Join the filtered words back into a string
-    return filteredWords.join(" ");
-  };
-
-  const handleScanDocument = async () => {
-    if (!image) {
-      return;
-    }
-
+  const handleSaveDocument = async () => {
     setIsProcessing(true);
-    try {
-      const {
-        data: { text },
-      } = await workerRef.current.recognize(image);
-      const processedText = processExtractedText(text);
-      setExtractedText(processedText);
-      onDocumentScanned(processedText);
-    } catch (error) {
-      console.error("Error during OCR:", error);
-      setExtractedText("Error extracting text. Please try again.");
-    } finally {
-      setIsProcessing(false);
-    }
+    
+    const result = await uploadScannedDoc(image.file);
+
+    onSave(result);
+    setIsProcessing(false);
   };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => setImage(e.target.result);
-      reader.readAsDataURL(file);
+      setImage({ src: URL.createObjectURL(file), file });
     }
   };
 
-  const capturePhoto = () => {
-    const imageSrc = cameraRef.current.takePhoto();
-    setImage(imageSrc);
+  const capturePhoto = async () => {
+    const imageString = cameraRef.current.takePhoto();
+    const imageFile = await fetch(imageString).then((res) => res.blob());
+    setImage({ src: URL.createObjectURL(imageFile), file: imageFile });
   };
 
   if (!isOpen) return null;
@@ -94,7 +49,7 @@ const DocumentScannerModal = ({ isOpen, onClose, onDocumentScanned }) => {
             <div className="space-y-4">
               <div className="relative aspect-[3/4] w-full rounded-lg shadow-lg overflow-hidden">
                 <img
-                  src={image}
+                  src={image.src}
                   alt="Scanned document"
                   className="w-full h-full object-cover"
                 />
@@ -104,7 +59,6 @@ const DocumentScannerModal = ({ isOpen, onClose, onDocumentScanned }) => {
                   onClick={() => {
                     setImage(null);
                     setImageSource("camera");
-                    setExtractedText("");
                   }}
                   className="bg-indigo-100 hover:bg-indigo-200 text-indigo-800 font-semibold py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out flex items-center"
                   disabled={isProcessing}
@@ -113,22 +67,14 @@ const DocumentScannerModal = ({ isOpen, onClose, onDocumentScanned }) => {
                   Retake
                 </button>
                 <button
-                  onClick={handleScanDocument}
+                  onClick={handleSaveDocument}
                   className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out flex items-center"
                   disabled={isProcessing}
                 >
                   <Save className="mr-2" size={20} />
-                  {isProcessing ? "Processing..." : "Extract Text"}
+                  {isProcessing ? "Processing..." : "Save"}
                 </button>
               </div>
-              {extractedText && (
-                <div className="mt-4 p-4 bg-white bg-opacity-20 rounded-lg">
-                  <h3 className="text-lg font-semibold mb-2">
-                    Extracted Text:
-                  </h3>
-                  <p className="text-sm">{extractedText}</p>
-                </div>
-              )}
             </div>
           ) : (
             <div className="space-y-4">
@@ -136,7 +82,11 @@ const DocumentScannerModal = ({ isOpen, onClose, onDocumentScanned }) => {
                 <div className="relative aspect-[3/4] w-full rounded-lg shadow-lg overflow-hidden">
                   <CameraPro
                     ref={cameraRef}
-                    facingMode="environment"
+                    numberOfCamerasCallback={(numOfCameras) => {
+                      if (numOfCameras > 1) {
+                        cameraRef.current.switchCamera();
+                      }
+                    }}
                     className="w-full h-full object-cover"
                   />
                   <button
@@ -198,7 +148,7 @@ const DocumentScannerModal = ({ isOpen, onClose, onDocumentScanned }) => {
 DocumentScannerModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  onDocumentScanned: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
 };
 
 export default DocumentScannerModal;

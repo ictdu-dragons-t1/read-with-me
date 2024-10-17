@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
 
 .card {
     @apply flex flex-col items-center justify-center shadow-lg rounded-md overflow-hidden cursor-pointer;
@@ -18,4 +22,22 @@
   .blank-card {
     @apply bg-lavender-blue-200 cursor-not-allowed;
   }
+
+  .preview-container {
+    max-width: full; /* Adjust as needed */
+    margin: 0 auto; /* Center horizontally */
+  }  
+
+  .input-placeholder::placeholder {
+    color: #7a6543; /* Adjust this color */
+    opacity: 1; /* Ensure full opacity */
+  }
+
+  .rabbit-hole-title {
+    font-family: 'Parisienne', cursive;
+    font-size: 3rem; /* Optional: Adjust the size to suit your design */
+    color: #2e2e2e;  /* Optional: Set the text color (e.g., black) */
+    text-align: center; /* Ensures the text is centered */
+  }
+  
   

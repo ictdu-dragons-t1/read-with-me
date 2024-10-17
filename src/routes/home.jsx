@@ -37,6 +37,7 @@ import wild from "../assets/images/covers/Wild.png";
 import robinson from "../assets/images/covers/Robinson.png";
 import add from "../assets/images/covers/Add.png";
 import RegistrationModal from "../components/RegistrationModal";
+import Preview from "../components/Preview";
 
 const Home = () => {
   const [isGridVisible, setIsGridVisible] = useState(false); // For toggling the book grid
@@ -144,6 +145,16 @@ const Home = () => {
     userName: "asdas",
   };
 
+  const [showPreview, setShowPreview] = useState(false);
+
+  const handleCardClick = () => {
+    setShowPreview(true); // Show the preview when the card is clicked
+  };
+
+  const closePreview = () => {
+    setShowPreview(false); // Close the preview
+  };
+
   return (
     <div className='flex flex-col lg:flex-row h-screen w-screen bg-purple-900 text-white bg-[#0f1433] overflow-hidden'>
       <RegistrationModal />
@@ -239,7 +250,9 @@ const Home = () => {
 
         {/* Desktop Menu Items */}
         {!isGenreSelect && (
-          <div className='fixed z-50 h-5/6 flex flex-col items-center justify-around mt-8 py-32 '>
+          <div
+            className={`fixed z-50 h-5/6 flex flex-col items-center justify-around mt-8 py-32 ${isFading ? "opacity-0" : "opacity-100"}`}
+          >
             {menuItems.map((item, index) => (
               <button
                 key={index}
@@ -331,7 +344,7 @@ const Home = () => {
                     zIndex: adjustedPosition === 0 ? 10 : 0,
                     filter: `blur(${calculateBlur(adjustedPosition)}px)`,
                   }}
-                  onClick={() => handleStartReading(book.genreImage)} // Use a generic click handler for all books
+                  onClick={() => handleStartReading(book.genreImage)}
                 >
                   {/* Genre Image */}
                   <img
@@ -354,67 +367,85 @@ const Home = () => {
 
         {/* Book Grid - Only visible when isGridVisible is true */}
         {isGridVisible && (
-          <div className="fixed ml-10 lg:top-12 md:top-12 top-24 text-xl left-auto right-auto font-bold italic text-white transition-opacity duration-300">Select a Story</div>
+          <div className='fixed ml-10 lg:top-12 md:top-12 top-24 text-xl left-auto right-auto font-bold italic text-white transition-opacity duration-300'>
+            Select a Story
+          </div>
         )}
         {isGridVisible && (
-            <div className='fixed lg:w-full md:w-[600px] w-[450px] max-w-[800px] z-20 transform lg:top-[15%] top-[45%] left-[50%] translate-x-[-50%] translate-y-[-50%] lg:left-auto lg:translate-x-4 lg:translate-y-0 grid grid-cols-4 gap-y-6 lg:gap-x-8 gap-x-4'>
-              {/* Card 1: Alice's Adventures in Wonderland */}
-              <img
-                src={alice}
-                alt="Alice's Adventures in Wonderland"
-                className='object-cover rounded-md cursor-pointer'
-                onClick={() => handleStorySelect("alice")}
-              />
-              {/* Card 2: The War of the Worlds */}
-              <img
-                src={add}
-                alt='Add'
-                className='object-cover rounded-md cursor-pointer'
-              />
-              {/* Card 3: Treasure Island */}
-              <img
-                src={treasure}
-                alt='Treasure Island'
-                className='object-cover rounded-md cursor-pointer'
-                onClick={() => handleStorySelect("treasure")}
-              />
-              {/* Card 4: The Jungle Book */}
-              <img
-                src={jungle}
-                alt='The Jungle Book'
-                className='object-cover rounded-md cursor-pointer'
-                onClick={() => handleStorySelect("jungle")}
-              />
-              {/* Card 5: Peter Pan */}
-              <img
-                src={peter}
-                alt='Peter Pan'
-                className='object-cover rounded-md cursor-pointer'
-                onClick={() => handleStorySelect("peter")}
-              />
-              {/* Card 6: The Adventures of Tom Sawyer */}
-              <img
-                src={sawyer}
-                alt='The Adventures of Tom Sawyer'
-                className='object-cover rounded-md cursor-pointer'
-                onClick={() => handleStorySelect("sawyer")}
-              />
-              {/* Card 7: The Call of the Wild */}
-              <img
-                src={wild}
-                alt='The Call of the Wild'
-                className='object-cover rounded-md cursor-pointer'
-                onClick={() => handleStorySelect("wild")}
-              />
-              {/* Card 8: The Swiss Family Robinson */}
-              <img
-                src={robinson}
-                alt='The Swiss Family Robinson'
-                className='object-cover rounded-md cursor-pointer'
-                onClick={() => handleStorySelect("robinson")}
-              />
-            </div>
+          <div className='fixed lg:w-full md:w-[600px] w-[450px] max-w-[800px] z-20 transform lg:top-[15%] top-[45%] left-[50%] translate-x-[-50%] translate-y-[-50%] lg:left-auto lg:translate-x-4 lg:translate-y-0 grid grid-cols-4 gap-y-6 lg:gap-x-8 gap-x-4'>
+            {/* Card 1: Alice's Adventures in Wonderland */}
+            <img
+              src={alice}
+              alt="Alice's Adventures in Wonderland"
+              className='object-cover rounded-md cursor-pointer'
+              onClick={handleCardClick}
+            />
+
+            {/* Card 2: The War of the Worlds */}
+            <img
+              src={add}
+              alt='Add'
+              className='object-cover rounded-md cursor-pointer'
+            />
+            {/* Card 3: Treasure Island */}
+            <img
+              src={treasure}
+              alt='Treasure Island'
+              className='object-cover rounded-md cursor-pointer'
+              onClick={() => handleStorySelect("treasure")}
+            />
+            {/* Card 4: The Jungle Book */}
+            <img
+              src={jungle}
+              alt='The Jungle Book'
+              className='object-cover rounded-md cursor-pointer'
+              onClick={() => handleStorySelect("jungle")}
+            />
+            {/* Card 5: Peter Pan */}
+            <img
+              src={peter}
+              alt='Peter Pan'
+              className='object-cover rounded-md cursor-pointer'
+              onClick={() => handleStorySelect("peter")}
+            />
+            {/* Card 6: The Adventures of Tom Sawyer */}
+            <img
+              src={sawyer}
+              alt='The Adventures of Tom Sawyer'
+              className='object-cover rounded-md cursor-pointer'
+              onClick={() => handleStorySelect("sawyer")}
+            />
+            {/* Card 7: The Call of the Wild */}
+            <img
+              src={wild}
+              alt='The Call of the Wild'
+              className='object-cover rounded-md cursor-pointer'
+              onClick={() => handleStorySelect("wild")}
+            />
+            {/* Card 8: The Swiss Family Robinson */}
+            <img
+              src={robinson}
+              alt='The Swiss Family Robinson'
+              className='object-cover rounded-md cursor-pointer'
+              onClick={() => handleStorySelect("robinson")}
+            />
+          </div>
         )}
+
+        {/* Conditionally render the Preview component when showPreview is true */}
+        {/* {showPreview && (
+              <div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-90 z-50 flex items-center justify-center'>
+                <div className='relative bg-gray-900 rounded-lg max-w-4xl w-full p-4 text-white'>
+                  <button
+                    className='absolute top-4 right-4 text-white text-xl'
+                    onClick={closePreview}
+                  >
+                    &times;
+                  </button>
+                  <Preview />
+                </div>
+              </div>
+            )} */}
 
         {/* Navigation and Button */}
         {!isGridVisible && (
@@ -444,8 +475,23 @@ const Home = () => {
         )}
       </div>
 
+      {/* Conditionally render the Preview component when showPreview is true */}
+      {showPreview && (
+        <div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-90 z-50 flex items-center justify-center'>
+          <div className='relative bg-gray-900 rounded-lg w-full p-4 text-white'>
+            <button
+              className='absolute top-4 right-4 text-white text-xl'
+              onClick={closePreview}
+            >
+              &times;
+            </button>
+            <Preview />
+          </div>
+        </div>
+      )}
+
       {/* Right Section - Logo, Upgrade, and Shop */}
-      <div className='lg:w-1/4 z-50 flex flex-col items-center lg:items-end justify-between p-4'>
+      <div className='lg:w-1/4 z-40 flex flex-col items-center lg:items-end justify-between p-4'>
         <div className='hidden lg:flex lg:flex-col items-end mb-4'>
           <h1 className='text-3xl italic font-bold mb-4'>RW/M</h1>
           <button className='flex flex-row border border-spacing-1 border-[#696969] bg-[#0b0c1f] bg-gradient-to-t from-[#193909] rounded-lg shadow-lg font-bold py-2 px-4 mb-4'>

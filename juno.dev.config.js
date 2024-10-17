@@ -11,16 +11,44 @@ export default defineDevConfig(() => ({
           write: 'managed',
           memory: 'stable',
           mutablePermissions: true
+        },
+        {
+          collection: 'books',
+          read: 'public',
+          write: 'public',
+          memory: 'stable',
+          mutablePermissions: true
+        },
+        {
+          collection: 'genres',
+          read: 'public',
+          write: 'public',
+          memory: 'stable',
+          mutablePermissions: true
         }
       ],
       storage: [
-        // {
-        //   collection: 'images',
-        //   read: 'managed',
-        //   write: 'managed',
-        //   memory: 'stable',
-        //   mutablePermissions: true
-        // }
+        {
+          collection: 'scanned_documents',
+          read: 'managed',
+          write: 'managed',
+          memory: 'stable',
+          mutablePermissions: true
+        },
+        {
+          collection: 'book_images',
+          read: 'public',
+          write: 'public',
+          memory: 'stable',
+          mutablePermissions: true
+        },
+        {
+          collection: 'genre_images',
+          read: 'public',
+          write: 'public',
+          memory: 'stable',
+          mutablePermissions: true
+        }
       ]
     }
   }

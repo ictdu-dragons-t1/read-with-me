@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import { User, Users, Crosshair, Trophy, ShoppingBag, Menu, X, ChevronDown } from "lucide-react";
+import {User, Users, Crosshair, Trophy, ShoppingBag, Menu, X, ChevronDown} from "lucide-react";
 
 import Registration from "../components/Registration";
 import TeamPlay from "../layouts/teamplay/TeamPlay";
@@ -8,6 +8,7 @@ import Chapter from "../components/Chapter";
 import Subscription from "../components/Subscription";
 import BookNavigation from "../components/BookNavigation";
 import BookDisplay from "../components/BookDisplay";
+import BookTitle from "../components/BookTitle.jsx";
 
 import alice from "../assets/images/covers/Alice.png";
 import thewar from "../assets/images/covers/TheWar.png";
@@ -20,16 +21,6 @@ import pride2 from "../assets/images/covers/Pride2.png";
 import moby2 from "../assets/images/covers/Moby2.png";
 import web2 from "../assets/images/covers/Web2.png";
 import profile from "../assets/images/covers/Profile.png";
-import treasure from "../assets/images/covers/Treasure.png";
-import jungle from "../assets/images/covers/Jungle.png";
-import peter from "../assets/images/covers/Peter.png";
-import sawyer from "../assets/images/covers/Sawyer.png";
-import wild from "../assets/images/covers/Wild.png";
-import robinson from "../assets/images/covers/Robinson.png";
-import add from "../assets/images/covers/Add.png";
-import RegistrationModal from "../components/RegistrationModal";
-import Preview from "../components/Preview";
-
 
 const GameMenu = () => {
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -37,14 +28,17 @@ const GameMenu = () => {
 	const [isFading, setIsFading] = useState(false);
 	const [isGenreSelect, setIsGenreSelect] = useState(false);
 	const [isShowingGenre, setIsShowingGenre] = useState(false);
-	const [selectedComponent, setSelectedComponent] = useState(null);
+	const [selectedComponent, setSelectedComponent] = useState();
 
 	const onChange = (item) => {
 		setSelectedComponent(item.component);
+		setIsGenreSelect(true);
 	}
+
+
 	const menuItems = [
 		{name: "Solo Play", icon: <User size={24}/>},
-		{name: "Team Play", icon: <Users size={24}/>, component: <TeamPlay/> },
+		{name: "Team Play", icon: <Users size={24}/>, component: <TeamPlay/>},
 		{name: "Battle Royale", icon: <Crosshair size={24}/>},
 		{name: "Leaderboard", icon: <Trophy size={24}/>},
 		{name: "Shop", icon: <ShoppingBag size={24}/>},
@@ -126,19 +120,25 @@ const GameMenu = () => {
 
 
 	return (
-		<div className='flex flex-col lg:flex-row h-screen w-screen bg-purple-900 text-white bg-[#0f1433] overflow-hidden'>
+		<div
+			className='flex flex-col lg:flex-row h-screen w-screen bg-purple-900 text-white bg-[#0f1433] overflow-hidden'>
 			<Registration/>
 			{/* Floor Effect - Below the books */}
 			<div className='fixed w-full h-32 bottom-0 mt-2'>
 				{/* Hard line at the top with a fading gradient below */}
-				<div className='w-full h-full border-t-2 border-[#7592ba] bg-gradient-to-b from-[#7592ba] via-transparent to-transparent opacity-10'></div>
+				<div
+					className='w-full h-full border-t-2 border-[#7592ba] bg-gradient-to-b from-[#7592ba] via-transparent to-transparent opacity-10'></div>
 			</div>
 
 			{/* Side gradients to hide hard line*/}
-			<div className='fixed z-20 h-full w-full hidden lg:flex lg:w-1/4 flex-col p-4 overflow-y-auto bg-gradient-to-r from-[#0f1433]'></div>
-			<div className='fixed z-20 h-full w-full hidden lg:flex lg:w-1/4 flex-col p-4 overflow-y-auto bg-gradient-to-r from-[#0f1433]'></div>
-			<div className='fixed z-20 h-full w-full hidden right-0 lg:flex lg:w-1/4 flex-col p-4 overflow-y-auto bg-gradient-to-l from-[#0f1433]'></div>
-			<div className='fixed z-20 h-full w-full hidden right-0 lg:flex lg:w-1/4 flex-col p-4 overflow-y-auto bg-gradient-to-l from-[#0f1433]'></div>
+			<div
+				className='fixed z-20 h-full w-full hidden lg:flex lg:w-1/4 flex-col p-4 overflow-y-auto bg-gradient-to-r from-[#0f1433]'></div>
+			<div
+				className='fixed z-20 h-full w-full hidden lg:flex lg:w-1/4 flex-col p-4 overflow-y-auto bg-gradient-to-r from-[#0f1433]'></div>
+			<div
+				className='fixed z-20 h-full w-full hidden right-0 lg:flex lg:w-1/4 flex-col p-4 overflow-y-auto bg-gradient-to-l from-[#0f1433]'></div>
+			<div
+				className='fixed z-20 h-full w-full hidden right-0 lg:flex lg:w-1/4 flex-col p-4 overflow-y-auto bg-gradient-to-l from-[#0f1433]'></div>
 			{/* Mobile Header */}
 			<div className='lg:hidden flex justify-between items-center p-4 bg-purple-800'>
 				<h1 className='text-xl font-semibold italic'>RW/M</h1>
@@ -244,42 +244,18 @@ const GameMenu = () => {
 
 			{/* Middle Section - Book Carousel with Progressive Blur */}
 			<div className='lg:w-1/2 right-4 mt-6 lg:mt-6 flex flex-col items-center justify-center p-4 relative'>
-				{/* Book Titles and Authors */}
-				<div className='ml-10 text-center'>
-					{!isShowingGenre ? (
-						<>
-							<h2
-								className={`text-xl font-bold italic text-white transition-opacity duration-300 ${isFading ? "opacity-0" : "opacity-100"}`}
-							>
-								{books[currentBookIndex].title}
-							</h2>
-							<p
-								className={`text-lg text-[#e6a33e] italic transition-opacity duration-300 ${isFading ? "opacity-0" : "opacity-100"}`}
-							>
-								{books[currentBookIndex].author}
-							</p>
-						</>
-					) : (
-						<>
-							<h2
-								className={`text-xl font-bold italic text-white transition-opacity duration-300 ${!isFading ? "opacity-100" : "opacity-100"}`}
-							>
-								{books[currentBookIndex].genreSelect}{" "}
-								{/* This should now refer to the correct book's genre */}
-							</h2>
-							<p
-								className={`text-lg text-[#e6a33e] italic transition-opacity duration-300 ${!isFading ? "opacity-100" : "opacity-100"}`}
-							>
-								{books[currentBookIndex].genreType}{" "}
-								{/* This should now refer to the correct book's genre */}
-							</p>
-						</>
-					)}
-				</div>
+				{!selectedComponent && (
+					<>
+						<BookTitle isShowingGenre={isShowingGenre} books={books} currentBookIndex={currentBookIndex} isFading={isFading}/>
 
-				{selectedComponent}
-				<BookDisplay books={books} currentBookIndex={currentBookIndex} isFading={isFading} isGenreSelect={isGenreSelect}/>
-				<BookNavigation nextBook={() => nextBook()} prevBook={() => prevBook()} handleStart={() => handleStartReading()}/>
+						<BookDisplay books={books} currentBookIndex={currentBookIndex} isFading={isFading}
+									 isGenreSelect={isGenreSelect}/>
+						<BookNavigation nextBook={() => nextBook()} prevBook={() => prevBook()}
+										handleStart={() => handleStartReading()}/>
+					</>
+				)
+				}
+				{ selectedComponent }
 			</div>
 
 			{/* Right Section - Logo, Upgrade, and Shop */}

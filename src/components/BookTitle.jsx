@@ -1,4 +1,6 @@
 const BookTitle = ({ isShowingGenre, books, currentBookIndex, isFading }) => {
+	if (!books.length) return null;
+
 	return (
 		<div className='ml-10 text-center'>
 			{!isShowingGenre ? (

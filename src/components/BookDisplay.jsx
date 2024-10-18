@@ -1,4 +1,6 @@
 const BookDisplay = ({books, currentBookIndex, isGenreSelect, isFading}) => {
+	if (!books.length) return null;
+
 	return (
 		<div className='relative ml-3 w-80 h-96 mb-16'>
 			{books.map((book, index) => {

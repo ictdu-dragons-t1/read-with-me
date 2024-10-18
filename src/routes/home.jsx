@@ -10,7 +10,6 @@ import {
   ChevronDown,
 } from "lucide-react";
 
-import Registration from "../components/Registration";
 import TeamPlay from "../layouts/teamplay/TeamPlay";
 import Footer from "../components/Footer";
 import Chapter from "../components/Chapter";
@@ -21,6 +20,7 @@ import BookTitle from "../components/BookTitle.jsx";
 
 import profile from "../assets/images/covers/Profile.png";
 import { getBookDocsWithGenres } from "../utils/junoUtils.js";
+import RegistrationModal from "../components/RegistrationModal.jsx";
 
 const GameMenu = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -76,7 +76,7 @@ const GameMenu = () => {
 
   return (
     <div className="flex flex-col lg:flex-row h-screen w-screen bg-purple-900 text-white bg-[#0f1433] overflow-hidden">
-      <Registration />
+      <RegistrationModal />
       {/* Floor Effect - Below the books */}
       <div className="fixed w-full h-32 bottom-0 mt-2">
         {/* Hard line at the top with a fading gradient below */}

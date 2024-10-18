@@ -5,16 +5,8 @@ import About from "../layouts/landing/About";
 
 // Images
 import bgImage from "../assets/images/BG.png";
-import { useAuth } from "../hooks/useAuth";
-import { Navigate } from "react-router-dom";
 
 const Landing = () => {
-  const { user } = useAuth();
-
-  if (user) {
-    return <Navigate to="/home" replace />;
-  }
-
   return (
     <>
       <div className="relative isolate min-h-[100dvh]">

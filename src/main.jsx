@@ -13,7 +13,6 @@ import "./index.css";
 import Home from "./routes/home";
 import Landing from "./routes/landing";
 import Root from "./routes/root";
-import BookShowcase from "./routes/showcase";
 
 const theme = createTheme({
   fontFamily: "poppins, sans-serif",
@@ -30,14 +29,6 @@ const router = createBrowserRouter(
           element={
             <RequireAuth>
               <Home />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/showcase"
-          element={
-            <RequireAuth>
-              <BookShowcase />
             </RequireAuth>
           }
         />

@@ -39,7 +39,7 @@ const BookDisplay = ({books, currentBookIndex, isGenreSelect, isFading}) => {
 					>
 						{/* Genre Image that stays visible */}
 						<img
-							src={book.genreImage}
+							src={book.genre.genreImageUrl}
 							alt={`Genre of ${book.title}`}
 							className={`fixed left-[11px] w-full h-full object-cover rounded-md transition-opacity duration-300 ${isFading ? "opacity-300" : "opacity-0"}`} // Genre image remains fully visible
 						/>

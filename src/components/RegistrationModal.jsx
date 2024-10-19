@@ -1,22 +1,33 @@
 import { useDisclosure } from "@mantine/hooks";
-import { Grid, TextInput, Button, Modal } from "@mantine/core";
+import { Grid, TextInput, Button, Modal, LoadingOverlay } from "@mantine/core";
 import bgImage from "../assets/images/alice.png";
-import { useAuth } from "../hooks/useAuth";
 import { useForm } from "@mantine/form";
+import { useShallow } from "zustand/shallow";
+import useAuthStore from "../stores/useAuthStore";
+
 
 const initialForm = {
   firstName: "",
   lastName: "",
-  userName: ""
-}
+  userName: "",
+};
 
 const RegistrationModal = () => {
   const form = useForm({
     mode: "controlled",
     initialValues: initialForm,
   });
+
+  const [visible, { toggle }] = useDisclosure(false);
   const [opened, { close }] = useDisclosure(false);
-  const { userData, isLoading, updateUser } = useAuth();
+
+  const { userData, isLoading, updateUser } = useAuthStore(
+    useShallow((state) => ({
+      userData: state.userData,
+      isLoading: state.isLoading,
+      updateUser: state.updateUserData,
+    }))
+  );
 
   const onClose = () => {
     if (userData) {
@@ -25,8 +36,7 @@ const RegistrationModal = () => {
   };
 
   const handleSubmit = () => {
-    // Add validation here
-
+    toggle();
     updateUser(form.values);
   };
 
@@ -45,6 +55,7 @@ const RegistrationModal = () => {
         },
       }}
     >
+      <LoadingOverlay visible={visible} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} />
       <Grid grow gutter="lg">
         <Grid.Col
           span={{ base: 12, md: 5 }}
@@ -118,7 +129,7 @@ const RegistrationModal = () => {
               onClick={handleSubmit}
             >
               <p className="font-semibold text-lg">Start</p>
-            </Button>
+            </Button >
           </div>
         </Grid.Col>
       </Grid>

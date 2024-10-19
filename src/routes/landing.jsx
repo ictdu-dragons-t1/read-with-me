@@ -1,31 +1,27 @@
-import { BackgroundImage } from "@mantine/core";
+import {BackgroundImage} from "@mantine/core";
 import NavBar from "../components/NavBar";
 import Home from "../layouts/landing/Home";
 import About from "../layouts/landing/About";
+import Faqs from "../layouts/landing/Faqs";
+import Footer from "../layouts/landing/LandingFooter.jsx";
 
 // Images
 import bgImage from "../assets/images/BG.png";
-import { useAuth } from "../hooks/useAuth";
-import { Navigate } from "react-router-dom";
 
 const Landing = () => {
-  const { user } = useAuth();
-
-  if (user) {
-    return <Navigate to="/home" replace />;
-  }
-
-  return (
-    <>
-      <div className="relative isolate min-h-[100dvh]">
-        <BackgroundImage src={bgImage} h={4000}>
-          <NavBar></NavBar>
-          <Home />
-          <About />
-        </BackgroundImage>
-      </div>
-    </>
-  );
+	return (
+		<>
+			<div className="relative isolate min-h-[100dvh]">
+				<BackgroundImage src={bgImage}>
+					<NavBar/>
+					<Home/>
+					<About/>
+					<Faqs/>
+					<Footer/>
+				</BackgroundImage>
+			</div>
+		</>
+	);
 };
 
 export default Landing;

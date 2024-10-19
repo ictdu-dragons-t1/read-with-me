@@ -1,18 +1,18 @@
+import { createTheme, MantineProvider } from "@mantine/core";
+import "@mantine/core/styles.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import "@mantine/core/styles.css";
-import { createTheme, MantineProvider } from "@mantine/core";
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
 } from "react-router-dom";
-import { Auth, RequireAuth } from "./components/Auth";
+import { RequireAuth } from "./components/RequireAuth";
+import "./index.css";
 import Home from "./routes/home";
 import Landing from "./routes/landing";
-import BookShowcase from "./routes/showcase";
+import Root from "./routes/root";
 
 const theme = createTheme({
   fontFamily: "poppins, sans-serif",
@@ -21,7 +21,7 @@ const theme = createTheme({
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route element={<Auth />}>
+      <Route element={<Root />}>
         <Route path="/" element={<Landing />} />
 
         <Route
@@ -29,14 +29,6 @@ const router = createBrowserRouter(
           element={
             <RequireAuth>
               <Home />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/showcase"
-          element={
-            <RequireAuth>
-              <BookShowcase />
             </RequireAuth>
           }
         />

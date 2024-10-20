@@ -21,7 +21,7 @@ By providing a scalable, interactive, and user-friendly platform! 🚀
 
 ## 🔍 How it works?
 
-![Read With Me (How It Works)](https://github.com/user-attachments/assets/b13c6139-a912-45ac-9d70-87acb7f8a796)
+![Read With Me (How It Works)](https://github.com/user-attachments/assets/6af65eb4-78e3-4450-9477-9d785a0e2123)
 
 ## 📸 Screenshots
 

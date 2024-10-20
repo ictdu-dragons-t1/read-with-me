@@ -36,7 +36,7 @@ By providing a scalable, interactive, and user-friendly platform! 🚀
 ### Prerequisites:
 - NPM/Yarn 📦
 - Docker Desktop 🐳
-- Juno CLI 🧑‍🚀
+- Juno CLI 🛰️
 
 ### How to run?
 

@@ -29,6 +29,7 @@ By providing a scalable, interactive, and user-friendly platform! 🚀
 ![462556500_9188414544520222_8680967862818502138_n](https://github.com/user-attachments/assets/14280fa5-9d77-4ba6-ab94-bc47ba651aa3)
 ![462555690_487728267748410_3894855004337613820_n](https://github.com/user-attachments/assets/99f04e82-a1f1-4e11-8dd9-cbb84ef14950)
 ![462548445_2193482477762725_3512379797209259088_n](https://github.com/user-attachments/assets/7e67236d-4164-480a-93c3-d0e4983950ff)
+![IMG_2982](https://github.com/user-attachments/assets/0095bd9b-80bd-4d91-976c-cd137dda3874)
 
 ## 🛠️ Setup Instructions
 

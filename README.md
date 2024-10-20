@@ -23,6 +23,14 @@ By providing a scalable, interactive, and user-friendly platform! 🚀
 
 ![Read With Me (How It Works)](https://github.com/user-attachments/assets/29bbc1fa-4c1f-4806-a049-6f490abe73d4)
 
+## 📸 Screenshots
+
+![462562453_466788165751703_7072784300685605258_n](https://github.com/user-attachments/assets/3a0eac11-4497-499c-8e15-5478862c95fa)
+![462556500_9188414544520222_8680967862818502138_n](https://github.com/user-attachments/assets/14280fa5-9d77-4ba6-ab94-bc47ba651aa3)
+![462555690_487728267748410_3894855004337613820_n](https://github.com/user-attachments/assets/99f04e82-a1f1-4e11-8dd9-cbb84ef14950)
+![462548445_2193482477762725_3512379797209259088_n](https://github.com/user-attachments/assets/7e67236d-4164-480a-93c3-d0e4983950ff)
+
+
 ## 🛠️ Setup Instructions
 
 ### Prerequisites:

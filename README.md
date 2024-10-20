@@ -1,4 +1,4 @@
-# 📚 ReadWithMe: Unlocking Literacy in Young Minds 🧠
+# 📚 ReadWithMe: Unlocking Literacy in Young Minds
 
 ## 🌟 What is ReadWithMe?
 

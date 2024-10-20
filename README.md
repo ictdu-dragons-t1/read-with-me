@@ -77,7 +77,7 @@ By providing a scalable, interactive, and user-friendly platform! 🚀
 
 ## 👥 Team Members
 
-- **Mel Mathew Palaña** - DevOps Engineer, Database Administrator, Project Manager 👨‍💻
+- **Mel Mathew Palaña** - Project Manager, DevOps Engineer, Database Administrator 👨‍💻
 - **Jose Gabriel Cruz** - Lead UI/UX Designer, Frontend Developer, Presenter 🎨
 - **John Carlo Paz** - UI/UX Designer, Frontend Developer 🖌️
 - **Quiana Dayrit** - Business Analyst, Content Manager, Presenter 📊

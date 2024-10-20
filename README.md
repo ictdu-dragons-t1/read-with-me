@@ -73,7 +73,7 @@ By providing a scalable, interactive, and user-friendly platform! 🚀
 
 ## 🏗️ Architecture
 
-![Read With Me (Architecture)](https://github.com/user-attachments/assets/626ee239-59d2-4dd4-a1f9-3c5482ec0920)
+![Read With Me (Architecture)](https://github.com/user-attachments/assets/d34211ea-e1fc-412f-ab34-73ff251a65a4)
 
 ## 👥 Team Members
 

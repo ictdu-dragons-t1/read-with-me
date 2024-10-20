@@ -19,6 +19,10 @@ We're solving the problems of:
 
 By providing a scalable, interactive, and user-friendly platform! 🚀
 
+## 🔍 How it works?
+
+![Read With Me (How It Works)](https://github.com/user-attachments/assets/29bbc1fa-4c1f-4806-a049-6f490abe73d4)
+
 ## 🛠️ Setup Instructions
 
 ### Prerequisites:
@@ -51,11 +55,17 @@ By providing a scalable, interactive, and user-friendly platform! 🚀
 - **React** - Front-end JavaScript library ⚛️
 - **Vite** - Modern, fast build tool and development server ⚡
 - **Zustand** - Small, fast, and scalable state management solution 🐻
+- **react-camera-pro** - Universal Camera component for React 📷
 - **Tesseract.js** - OCR engine for JavaScript 👁️
 - **HuggingFace** - Platform for machine learning models 🤗
+- **Mistral AI** - Advanced AI for natural language processing tasks 🧠
 - **ElevenLabs** - Text-to-speech AI platform 🎙️
 - **Tailwind CSS** - Utility-first CSS framework 🌈
 - **Mantine UI** - React components library 🧱
+
+## 🏗️ Architecture
+
+![Read With Me (Architecture)](https://github.com/user-attachments/assets/796d7bd0-f841-4ed1-82e8-e810fe1f813e)
 
 ## 👥 Team Members
 

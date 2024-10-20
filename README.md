@@ -52,9 +52,9 @@ By providing a scalable, interactive, and user-friendly platform! 🚀
 ### 🌐 How to deploy to the mainnet?
 
 1. Create a satellite in the [Juno console](https://console.juno.build/)
-2. Login to the Juno CLI: `juno login`
-3. Build your website for deployment: `npm run build`
-4. Deploy your website to Juno: `juno deploy`
+2. Open a terminal and login to the Juno CLI: `juno login`
+3. On the root of your project, open a terminal and build your project for deployment: `npm run build`
+4. Once your website is built (check for **dist** or **build** folder), then deploy your website to Juno: `juno deploy`
 5. To open your website, run: `juno open` (You can also go to the Juno console to view the canister URL)
 
 ## 🚀 Technologies Used

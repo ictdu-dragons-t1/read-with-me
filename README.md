@@ -1,4 +1,6 @@
-# 📚 ReadWithMe: Unlocking Literacy in Young Minds
+# ReadWithMe: Unlocking Literacy in Young Minds
+
+<img src="https://github.com/user-attachments/assets/8fd19665-9000-40db-a40f-787b2509d90a" width="30%"/><br>
 
 ## 🌟 What is ReadWithMe?
 

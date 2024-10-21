@@ -288,19 +288,19 @@ const CheckpointScreen = ({}) => {
               className={`px-4 py-2 text-white font-semibold rounded-lg border-b-4 ${activeTab === "feedback1" ? "border-[#654321]" : "border-transparent"} bg-[#7a6543] hover:bg-[#654321] focus:outline-none`}
               onClick={() => showTab("feedback1")}
             >
-              Feedback 1
+              Level 1
             </button>
             <button
               className={`px-4 py-2 text-white font-semibold rounded-lg border-b-4 ${activeTab === "feedback2" ? "border-[#654321]" : "border-transparent"} bg-[#7a6543] hover:bg-[#654321] focus:outline-none`}
               onClick={() => showTab("feedback2")}
             >
-              Feedback 2
+              Level 2
             </button>
             <button
               className={`px-4 py-2 text-white font-semibold rounded-lg border-b-4 ${activeTab === "feedback3" ? "border-[#654321]" : "border-transparent"} bg-[#7a6543] hover:bg-[#654321] focus:outline-none`}
               onClick={() => showTab("feedback3")}
             >
-              Feedback 3
+              Level 3
             </button>
           </div>
         </div>

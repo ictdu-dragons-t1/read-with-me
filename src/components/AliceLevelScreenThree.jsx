@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { ArrowRightCircle, AudioLines } from "lucide-react"; // Import the curved arrow icon
+import React, { useState, useEffect, useRef } from "react";
+import { ArrowRightCircle, AudioLines, Pause } from "lucide-react"; // Import the curved arrow icon
 import { useNavigate } from "react-router-dom";
 import AliceLevelScreenTwo from "./AliceLevelScreenTwo"; // Import the new level screen
 import LoadingScreen from "./LoadingScreen"; // Import the LoadingScreen component
@@ -21,6 +21,10 @@ const AliceLevelScreen = ({ setPlay }) => {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false); // New state for sidebar expansion
   const [expandedChapters, setExpandedChapters] = useState([]);
   const [level, setLevel] = useState(3); // New state for tracking the current level
+  const [firstTTSPaused, setFirstTTSPaused] = useState(false);
+  const [secondTTSPaused, setSecondTTSPaused] = useState(false);
+  const firstParagraphTTS = useRef(null);
+  const secondParagraphTTS = useRef(null);
 
   const { startStreaming } = useTTS();
 
@@ -253,17 +257,34 @@ const AliceLevelScreen = ({ setPlay }) => {
             color="#b49a68"
             onClick={() =>
               (async () => {
-                await startStreaming({
-                  voiceId: VOICE_ID,
-                  text: `“Well!” thought Alice to herself, “after such a fall as this, I
+                if (
+                  firstParagraphTTS.current &&
+                  !firstParagraphTTS.current.paused
+                ) {
+                  firstParagraphTTS.current.pause();
+                  setFirstTTSPaused(true);
+                  return;
+                }
+
+                if (
+                  firstParagraphTTS.current &&
+                  firstParagraphTTS.current.paused
+                ) {
+                  firstParagraphTTS.current.play();
+                  setFirstTTSPaused(false);
+                } else {
+                  firstParagraphTTS.current = await startStreaming({
+                    voiceId: VOICE_ID,
+                    text: `“Well!” thought Alice to herself, “after such a fall as this, I
             shall think nothing of tumbling down stairs! How brave they’ll all
             think me at home! Why, I wouldn't say anything about it, even if I
             fell off the top of the house!” (Which was very likely true.)`,
-                });
+                  });
+                }
               })()
             }
           >
-            <AudioLines />
+            {firstTTSPaused ? <Pause /> : <AudioLines />}
           </ActionIcon>
           <p>
             “Well!” thought Alice to herself, “after such a fall as this, I
@@ -276,9 +297,25 @@ const AliceLevelScreen = ({ setPlay }) => {
             color="#b49a68"
             onClick={() =>
               (async () => {
-                await startStreaming({
-                  voiceId: VOICE_ID,
-                  text: ` Down, down, down. Would the fall never come to an end? “I wonder how
+                if (
+                  secondParagraphTTS.current &&
+                  !secondParagraphTTS.current.paused
+                ) {
+                  secondParagraphTTS.current.pause();
+                  setSecondTTSPaused(true);
+                  return;
+                }
+
+                if (
+                  secondParagraphTTS.current &&
+                  secondParagraphTTS.current.paused
+                ) {
+                  secondParagraphTTS.current.play();
+                  setSecondTTSPaused(false);
+                } else {
+                  secondParagraphTTS.current = await startStreaming({
+                    voiceId: VOICE_ID,
+                    text: ` Down, down, down. Would the fall never come to an end? “I wonder how
             many miles I’ve fallen by this time?” she said aloud. “I must be
             getting somewhere near the centre of the earth. Let me see: that
             would be four thousand miles down, I think—” (for, you see, Alice
@@ -289,11 +326,12 @@ const AliceLevelScreen = ({ setPlay }) => {
             right distance—but then I wonder what Latitude or Longitude I’ve got
             to?” (Alice had no idea what Latitude was, or Longitude either, but
             thought they were nice grand words to say.)`,
-                });
+                  });
+                }
               })()
             }
           >
-            <AudioLines />
+            {secondTTSPaused ? <Pause /> : <AudioLines />}
           </ActionIcon>
           <p>
             Down, down, down. Would the fall never come to an end? “I wonder how

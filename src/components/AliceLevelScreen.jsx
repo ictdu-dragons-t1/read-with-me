@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { AudioLines, Lightbulb } from "lucide-react"; // Importing the Lightbulb icon from lucide-react
+import React, { useState, useEffect, useRef } from "react";
+import { AudioLines, Lightbulb, Pause } from "lucide-react"; // Importing the Lightbulb icon from lucide-react
 import { ArrowRightCircle } from "lucide-react"; // Import the curved arrow icon
 import { useNavigate } from "react-router-dom";
 import AliceLevelScreenTwo from "./AliceLevelScreenTwo"; // Import the new level screen
@@ -21,8 +21,15 @@ const AliceLevelScreen = ({ setPlay }) => {
   const [level, setLevel] = useState(1); // New state for tracking the current level
   const [showLoading, setShowLoading] = useState(false); // New state to control the loading screen display
   const [isContentVisible, setIsContentVisible] = useState(false); // State to control content visibility
+  const [firstTTSPaused, setFirstTTSPaused] = useState(false);
+  const [secondTTSPaused, setSecondTTSPaused] = useState(false);
+  const [thirdTTSPaused, setThirdTTSPaused] = useState(false);
 
   const { startStreaming } = useTTS();
+
+  const firstParagraphTTS = useRef(null);
+  const secondParagraphTTS = useRef(null);
+  const thirdParagraphTTS = useRef(null);
 
   // Predefined hints for each question
   const hints = [
@@ -253,18 +260,32 @@ const AliceLevelScreen = ({ setPlay }) => {
               color="#b49a68"
               onClick={() =>
                 (async () => {
-                  await startStreaming({
-                    voiceId: VOICE_ID,
-                    text: `Alice was beginning to get very tired of sitting by her sister on
+                  if (
+                    firstParagraphTTS.current &&
+                    !firstParagraphTTS.current.paused
+                  ) {
+                    firstParagraphTTS.current.pause();
+                    setFirstTTSPaused(true);
+                    return;
+                  }
+
+                  if (firstParagraphTTS.current && firstParagraphTTS.current.paused) {
+                    firstParagraphTTS.current.play();
+                    setFirstTTSPaused(false);
+                  } else {
+                    firstParagraphTTS.current = await startStreaming({
+                      voiceId: VOICE_ID,
+                      text: `Alice was beginning to get very tired of sitting by her sister on
                 the bank, and of having nothing to do: once or twice she had
                 peeped into the book her sister was reading, but it had no
                 pictures or conversations in it, “and what is the use of a book,”
                 thought Alice, “without pictures or conversations?”"`,
-                  });
+                    });
+                  }
                 })()
               }
             >
-              <AudioLines />
+              {firstTTSPaused ? <Pause /> :<AudioLines />}
             </ActionIcon>
             <p>
               Alice was beginning to get very tired of sitting by her sister on
@@ -278,7 +299,20 @@ const AliceLevelScreen = ({ setPlay }) => {
               color="#b49a68"
               onClick={() =>
                 (async () => {
-                  await startStreaming({
+                  if (
+                    secondParagraphTTS.current &&
+                    !secondParagraphTTS.current.paused
+                  ) {
+                    secondParagraphTTS.current.pause();
+                    setSecondTTSPaused(true);
+                    return;
+                  }
+
+                  if (secondParagraphTTS.current && secondParagraphTTS.current.paused) {
+                    secondParagraphTTS.current.play();
+                    setSecondTTSPaused(false);
+                  } else {
+                  secondParagraphTTS.current = await startStreaming({
                     voiceId: VOICE_ID,
                     text: `So she was considering in her own mind (as well as she could, for
               the hot day made her feel very sleepy and stupid) whether the
@@ -286,10 +320,11 @@ const AliceLevelScreen = ({ setPlay }) => {
               getting up and picking the daisies, when suddenly a White Rabbit
               with pink eyes ran close by her.`,
                   });
+                  }
                 })()
               }
             >
-              <AudioLines />
+              {secondTTSPaused ? <Pause /> :<AudioLines />}
             </ActionIcon>
             <p>
               So she was considering in her own mind (as well as she could, for
@@ -303,7 +338,20 @@ const AliceLevelScreen = ({ setPlay }) => {
               color="#b49a68"
               onClick={() =>
                 (async () => {
-                  await startStreaming({
+                  if (
+                    thirdParagraphTTS.current &&
+                    !thirdParagraphTTS.current.paused
+                  ) {
+                    thirdParagraphTTS.current.pause();
+                    setThirdTTSPaused(true);
+                    return;
+                  }
+
+                  if (thirdParagraphTTS.current && thirdParagraphTTS.current.paused) {
+                    thirdParagraphTTS.current.play();
+                    setThirdTTSPaused(false);
+                  } else {
+                  thirdParagraphTTS.current = await startStreaming({
                     voiceId: VOICE_ID,
                     text: `There was nothing so very remarkable in that; nor did Alice think
               it so very much out of the way to hear the Rabbit say to itself,
@@ -318,10 +366,11 @@ const AliceLevelScreen = ({ setPlay }) => {
               fortunately was just in time to see it pop down a large
               rabbit-hole under the hedge.`,
                   });
+                  }
                 })()
               }
             >
-              <AudioLines />
+              {thirdTTSPaused ? <Pause /> :<AudioLines />}
             </ActionIcon>
             <p>
               There was nothing so very remarkable in that; nor did Alice think

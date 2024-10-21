@@ -31,6 +31,7 @@ const useTTS = () => {
         if (response.status === 200) {
           const audio = new Audio(URL.createObjectURL(response.data));
           audio.play();
+          return audio;
         } else {
           throw new Error("Unable to stream audio.");
         }

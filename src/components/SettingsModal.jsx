@@ -22,7 +22,7 @@ const SettingsModal = () => {
         setIsSeeding(true);
         seedDatabase().then(() => {
           setIsSeeding(false);
-          alert("Database seeded successfully!");
+          window.location.reload();
         });
       },
     },

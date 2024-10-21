@@ -1,6 +1,6 @@
 import { ActionIcon } from "@mantine/core";
-import { ArrowRightCircle, AudioLines } from "lucide-react"; // Import the curved arrow icon
-import React, { useEffect, useState } from "react";
+import { ArrowRightCircle, AudioLines, Pause } from "lucide-react"; // Import the curved arrow icon
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useTTS from "../hooks/useTTS";
 import AliceLevelScreenThree from "./AliceLevelScreenThree"; // Import the new level screen
@@ -33,6 +33,13 @@ const AliceLevelScreen = ({ setPlay }) => {
   const [expandedChapters, setExpandedChapters] = useState([]);
   const [level, setLevel] = useState(2); // New state for tracking the current level
   const [showLoading, setShowLoading] = useState(false); // New state to control the loading screen display
+  const [firstTTSPaused, setFirstTTSPaused] = useState(false);
+  const [secondTTSPaused, setSecondTTSPaused] = useState(false);
+  const [thirdTTSPaused, setThirdTTSPaused] = useState(false);
+
+  const firstParagraphTTS = useRef(null);
+  const secondParagraphTTS = useRef(null);
+  const thirdParagraphTTS = useRef(null);
 
   const { startStreaming } = useTTS();
 
@@ -260,15 +267,32 @@ const AliceLevelScreen = ({ setPlay }) => {
             color="#b49a68"
             onClick={() =>
               (async () => {
-                await startStreaming({
-                  voiceId: VOICE_ID,
-                  text: `In another moment down went Alice after it, never once considering
+                if (
+                  firstParagraphTTS.current &&
+                  !firstParagraphTTS.current.paused
+                ) {
+                  firstParagraphTTS.current.pause();
+                  setFirstTTSPaused(true);
+                  return;
+                }
+
+                if (
+                  firstParagraphTTS.current &&
+                  firstParagraphTTS.current.paused
+                ) {
+                  firstParagraphTTS.current.play();
+                  setFirstTTSPaused(false);
+                } else {
+                  firstParagraphTTS.current = await startStreaming({
+                    voiceId: VOICE_ID,
+                    text: `In another moment down went Alice after it, never once considering
             how in the world she was to get out again.`,
-                });
+                  });
+                }
               })()
             }
           >
-            <AudioLines />
+            {firstTTSPaused ? <Pause /> : <AudioLines />}
           </ActionIcon>
           <p>
             In another moment down went Alice after it, never once considering
@@ -279,17 +303,34 @@ const AliceLevelScreen = ({ setPlay }) => {
             color="#b49a68"
             onClick={() =>
               (async () => {
-                await startStreaming({
-                  voiceId: VOICE_ID,
-                  text: `The rabbit-hole went straight on like a tunnel for some way, and
+                if (
+                  secondParagraphTTS.current &&
+                  !secondParagraphTTS.current.paused
+                ) {
+                  secondParagraphTTS.current.pause();
+                  setSecondTTSPaused(true);
+                  return;
+                }
+
+                if (
+                  secondParagraphTTS.current &&
+                  secondParagraphTTS.current.paused
+                ) {
+                  secondParagraphTTS.current.play();
+                  setSecondTTSPaused(false);
+                } else {
+                  secondParagraphTTS.current = await startStreaming({
+                    voiceId: VOICE_ID,
+                    text: `The rabbit-hole went straight on like a tunnel for some way, and
             then dipped suddenly down, so suddenly that Alice had not a moment
             to think about stopping herself before she found herself falling
             down a very deep well.`,
-                });
+                  });
+                }
               })()
             }
           >
-            <AudioLines />
+            {secondTTSPaused ? <Pause /> : <AudioLines />}
           </ActionIcon>
           <p>
             The rabbit-hole went straight on like a tunnel for some way, and
@@ -302,9 +343,25 @@ const AliceLevelScreen = ({ setPlay }) => {
             color="#b49a68"
             onClick={() =>
               (async () => {
-                await startStreaming({
-                  voiceId: VOICE_ID,
-                  text: `Either the well was very deep, or she fell very slowly, for she had
+                if (
+                  thirdParagraphTTS.current &&
+                  !thirdParagraphTTS.current.paused
+                ) {
+                  thirdParagraphTTS.current.pause();
+                  setThirdTTSPaused(true);
+                  return;
+                }
+
+                if (
+                  thirdParagraphTTS.current &&
+                  thirdParagraphTTS.current.paused
+                ) {
+                  thirdParagraphTTS.current.play();
+                  setThirdTTSPaused(false);
+                } else {
+                  thirdParagraphTTS.current = await startStreaming({
+                    voiceId: VOICE_ID,
+                    text: `Either the well was very deep, or she fell very slowly, for she had
             plenty of time as she went down to look about her and to wonder what
             was going to happen next. First, she tried to look down and make out
             what she was coming to, but it was too dark to see anything; then
@@ -315,11 +372,12 @@ const AliceLevelScreen = ({ setPlay }) => {
             her great disappointment it was empty: she did not like to drop the
             jar for fear of killing somebody underneath, so managed to put it
             into one of the cupboards as she fell past it.`,
-                });
+                  });
+                }
               })()
             }
           >
-            <AudioLines />
+            {thirdTTSPaused ? <Pause /> : <AudioLines />}
           </ActionIcon>
           <p>
             Either the well was very deep, or she fell very slowly, for she had

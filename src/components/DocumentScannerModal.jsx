@@ -7,7 +7,7 @@ import useModalStore from "../stores/useModalStore";
 
 const DocumentScannerModal = () => {
   const [image, setImage] = useState(null);
-  const [imageSource, setImageSource] = useState("camera");
+  const [imageSource, setImageSource] = useState("file");
   const [isProcessing, setIsProcessing] = useState(false);
   const fileInputRef = useRef(null);
   const cameraRef = useRef(null);

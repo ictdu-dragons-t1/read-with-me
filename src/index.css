@@ -39,5 +39,63 @@
     color: #2e2e2e;  /* Optional: Set the text color (e.g., black) */
     text-align: center; /* Ensures the text is centered */
   }
+
+  .novel-text {
+    font-family: 'Georgia', 'Times New Roman', serif; /* Serif fonts for a classic novel look */
+    font-size: 1.1rem; /* Slightly larger font for readability */
+    line-height: 1.6; /* Increase line spacing for a more comfortable read */
+    text-align: justify; /* Justify the text for a neat, even edge */
+    color: #4b3621; /* Dark brown color for a vintage feel */
+    margin: 0 auto; /* Center the block */
+    max-width: 700px; /* Limit the width to mimic a page-like format */
+  }
+  
+  .novel-text p {
+    text-indent: 1.5em; /* Indent the first line of each paragraph */
+    margin-bottom: 1.5rem; /* Spacing between paragraphs */
+  }
+
+  .fade-in {
+    opacity: 0;
+    transition: opacity 0.5s ease-in; /* Transition for fading in */
+  }
+  
+  .fade-in.show {
+    opacity: 0.3; /* Final opacity for the dimming effect */
+  }
+  
+  .fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease-out; /* Transition for fading out */
+  }
+  
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  opacity: 0; /* Ensure the element starts hidden */
+  animation: fadeUp 0.8s ease-out forwards;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column; /* Aligns bubbles vertically */
+  transition: height 0.3s ease; /* Smooth height transition */
+}
+
+.chat-bubble {
+  transition: opacity 0.3s ease; /* Smooth opacity transition */
+}
+
+  
+  
   
   

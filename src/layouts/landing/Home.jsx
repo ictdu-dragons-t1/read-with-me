@@ -9,6 +9,7 @@ import chess from "../../assets/images/chess.png";
 import puzzle from "../../assets/images/puzzle.png";
 import avatar from "../../assets/images/avatar.png";
 import medal from "../../assets/images/medal.png";
+import {signOut} from "@junobuild/core";
 
 
 const Home = () => {
@@ -33,7 +34,7 @@ const Home = () => {
 
     return (
         <>
-            <main className="mx-auto max-w-screen-2xl py-20 md:py-22  px-10 md:px-24 tall:min-h-[calc(100dvh-128px)]">
+            <main className="mx-auto max-w-screen-2xl pt-20 mt-20 md:py-22  px-10 md:px-24 tall:min-h-[calc(100dvh-128px)]">
                 <Grid>
                     <Grid.Col span={{ base: 12, md: 6, lg: 4, xl: 4 }}>
                         <h1 className="dark:text-white text-5xl md:text-5xl font-bold tracking-tight md:pt-20">
@@ -56,7 +57,6 @@ const Home = () => {
                                             {menu.name}
                                         </p>
                                     </Button>
-
                                 ))
                             }
                         </Stack>

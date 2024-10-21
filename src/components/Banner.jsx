@@ -30,19 +30,16 @@ const Banner = () => {
 		<div className="flex justify-center items-center gap-10">
 			{
 				banners.map((item) => (
-					<Box h={500} w={200}>
-						<BackgroundImage src={banner} className="h-full w-full bg-auto">
-							<div className=" w-full h-full pt-10">
-								<Avatar src={item.profile} className="mx-auto my-0 mb-2" size={80}/>
-								<p className="text-white font-bold text-lg">{item.name}</p>
-								<hr className="border-[#A89E42] border-2 w-10/12 mx-auto my-0"/>
-								<div className="flex gap-2 justify-center mt-2">
-									<Trophy size={20} color="#A89E42"/>
-									<Text align="center" className="text-white font-bold text-lg">{item.achievement}</Text>
-								</div>
-							</div>
-						</BackgroundImage>
-					</Box>
+					<div className="h-full w-full z-50 bg-no-repeat bg-cover pt-10 pl-3 my-10"
+						 style={{backgroundImage: `url(${banner})`, height: 500, width: 200}}>
+						<Avatar src={item.profile} className="mx-auto my-0 mb-2" size={80}/>
+						<p className="text-white font-bold text-md w-10/12 mx-auto my-0 overflow-hidden truncate  ...">{item.name}</p>
+						<hr className="border-[#A89E42] border-2 w-10/12 mx-auto my-0"/>
+						<div className="flex gap-2 justify-center mt-2">
+							<Trophy size={20} color="#A89E42"/>
+							<p className="text-white font-bold text-lg text-ellipsis  ...">{item.achievement}</p>
+						</div>
+					</div>
 				))
 			}
 		</div>

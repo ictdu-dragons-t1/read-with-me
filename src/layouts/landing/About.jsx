@@ -26,16 +26,20 @@ const About = () => {
 
     const thirdSection = ['Creative Writing', 'Fill in the Blanks', 'What happens next?']
     return (
-        <main className="mx-auto max-w-screen-2xl py-20 md:py-22 px-10 md:px-24 tall:min-h-[calc(100dvh-128px)]">
+        <main className="mx-auto max-w-screen-2xl pb-20 md:py-22 px-10 md:px-24 tall:min-h-[calc(100dvh-128px)]">
             <Grid gutter='md'>
+                <Grid.Col>
+                    <h1 className='dark:text-white text-5xl md:text-5xl font-bold tracking-tight md:pt-20 mb-8'>Features</h1>
+                </Grid.Col>
+
                 <Grid.Col span={{ base: 12, md: 4, lg: 4, xl: 4 }}>
-                    <Card shadow='lg' radius='lg' styles={{ root: { backgroundColor: '#7C9ED8' } }} className='h-full' h={400}>
+                    <Card shadow='lg' radius='lg' styles={{ root: { backgroundColor: '#7C9ED8' } }} className="md:h-96">
                         <Card.Section>
-                            <h1 className='text-white font-semibold italic text-xl ml-3 mt-3    '>Dynamic Game Modes...</h1>
+                            <h1 className='text-white font-semibold italic text-xl ml-3 mt-3'>Dynamic Game Modes...</h1>
                         </Card.Section>
                         <Card.Section className='py-2 md:py-4 px-2'>
                             <Center>
-                                <Stack gap={15}>
+                                <Stack gap={6}>
                                     {
                                         firstSection.map((section, index) => (
                                             <div className='relative' key={index}>
@@ -51,7 +55,7 @@ const About = () => {
                 </Grid.Col>
 
                 <Grid.Col span={{ base: 12, md: 4, lg: 4, xl: 4 }}>
-                    <Card shadow='lg' radius='lg' styles={{ root: { backgroundColor: '#7C9ED8' }}}  h={400}>
+                    <Card shadow='lg' radius='lg' styles={{ root: { backgroundColor: '#7C9ED8' }}}  className="md:h-96">
                         <Card.Section>
                             <h1 className='text-white font-semibold italic text-xl ml-3 mt-3'>Personalized Feedback</h1>
                         </Card.Section>
@@ -65,7 +69,7 @@ const About = () => {
                 </Grid.Col>
 
                 <Grid.Col span={{ base: 12, md: 4, lg: 4, xl: 4 }}>
-                    <Card shadow='lg' radius='lg' styles={{ root: { backgroundColor: '#7C9ED8' } }}  h={400}>
+                    <Card shadow='lg' radius='lg' styles={{ root: { backgroundColor: '#7C9ED8' } }} className="md:h-96">
                         <Card.Section>
                             <h1 className='text-white font-semibold italic text-xl ml-3 mt-3'>Personalized Feedback</h1>
                         </Card.Section>
@@ -86,21 +90,23 @@ const About = () => {
                     </Card>
                 </Grid.Col>
 
+
                 <Grid.Col span={{ base: 12, md: 6 }}>
-                    <Card shadow='lg' radius='lg' styles={{ root: { backgroundColor: '#7C9ED8' } }}  h={400}>
+                    <Card shadow='lg' radius='lg' styles={{ root: { backgroundColor: '#7C9ED8' } }} className="md:h-96">
                         <Card.Section className='py-2 md:py-4 px-2'>
                             <Center>
-                                <img src={book} alt="" className='w-2/3' />
+                                <img src={book} alt="" className='md: w-3/5 lg:2/5' />
                             </Center>
                         </Card.Section>
-                        <Card.Section>
-                            <h1 className='text-white font-semibold italic text-xl ml-3 mt-3'>Choose Your Story...</h1>
+
+                        <Card.Section className='w-full mt-auto pb-3'>
+                            <h1 className='text-white font-semibold italic text-xl ml-3 mt-3'>Customization for Everyone</h1>
                         </Card.Section>
                     </Card>
                 </Grid.Col>
 
                 <Grid.Col span={{ base: 12, md: 6 }}>
-                    <Card shadow='lg' radius='lg' styles={{ root: { backgroundColor: '#7C9ED8' } }}  h={400}>
+                    <Card shadow='lg' radius='lg' styles={{ root: { backgroundColor: '#7C9ED8' } }} className="md:h-96">
                             <Card.Section className='py-2 md:py-4 px-2'>
                                 <Center>
                                     <img src={avatar} alt="" className='w-5/3' />

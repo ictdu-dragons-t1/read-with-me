@@ -25,11 +25,13 @@ By providing a scalable, interactive, and user-friendly platform! 🚀
 
 ## 📸 Screenshots
 
-![462562453_466788165751703_7072784300685605258_n](https://github.com/user-attachments/assets/3a0eac11-4497-499c-8e15-5478862c95fa)
-![462556500_9188414544520222_8680967862818502138_n](https://github.com/user-attachments/assets/14280fa5-9d77-4ba6-ab94-bc47ba651aa3)
-![462555690_487728267748410_3894855004337613820_n](https://github.com/user-attachments/assets/99f04e82-a1f1-4e11-8dd9-cbb84ef14950)
-![462548445_2193482477762725_3512379797209259088_n](https://github.com/user-attachments/assets/7e67236d-4164-480a-93c3-d0e4983950ff)
-![IMG_2982](https://github.com/user-attachments/assets/0095bd9b-80bd-4d91-976c-cd137dda3874)
+![Screenshot 2024-10-21 at 22-25-43 Read With Me!](https://github.com/user-attachments/assets/656edc34-643a-42b3-9069-d4955281d1bc)
+![Screenshot 2024-10-21 at 22-26-27 Read With Me!](https://github.com/user-attachments/assets/878a21ea-3319-46d4-8169-8a3d8b225b52)
+![Screenshot 2024-10-21 at 22-26-39 Read With Me!](https://github.com/user-attachments/assets/f302a1ea-e8b5-4842-9778-ecb8c18b0da1)
+![Screenshot 2024-10-21 at 22-27-08 Read With Me!](https://github.com/user-attachments/assets/9eab6550-fe46-4b1f-aa59-66018eacd138)
+![Screenshot 2024-10-21 at 22-27-58 Read With Me!](https://github.com/user-attachments/assets/1dc116e1-cd7d-427e-95f8-37f0a71834e5)
+![Screenshot 2024-10-21 at 22-28-23 Read With Me!](https://github.com/user-attachments/assets/b0e4207b-72c3-4a5d-8a81-eece7cb607e3)
+
 
 ## 🛠️ Setup Instructions
 

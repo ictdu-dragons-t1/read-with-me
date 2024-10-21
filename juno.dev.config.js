@@ -25,7 +25,14 @@ export default defineDevConfig(() => ({
           write: 'public',
           memory: 'stable',
           mutablePermissions: true
-        }
+        },
+        {
+          collection: 'stories',
+          read: 'public',
+          write: 'public',
+          memory: 'stable',
+          mutablePermissions: true
+        },
       ],
       storage: [
         {
@@ -44,6 +51,13 @@ export default defineDevConfig(() => ({
         },
         {
           collection: 'genre_images',
+          read: 'public',
+          write: 'public',
+          memory: 'stable',
+          mutablePermissions: true
+        },
+        {
+          collection: 'story_images',
           read: 'public',
           write: 'public',
           memory: 'stable',

@@ -1,10 +1,9 @@
 import { useDisclosure } from "@mantine/hooks";
-import { Grid, TextInput, Button, Modal, LoadingOverlay } from "@mantine/core";
+import { Grid, TextInput, Button, Modal } from "@mantine/core";
 import bgImage from "../assets/images/alice.png";
 import { useForm } from "@mantine/form";
 import { useShallow } from "zustand/shallow";
 import useAuthStore from "../stores/useAuthStore";
-
 
 const initialForm = {
   firstName: "",
@@ -18,7 +17,6 @@ const RegistrationModal = () => {
     initialValues: initialForm,
   });
 
-  const [visible, { toggle }] = useDisclosure(false);
   const [opened, { close }] = useDisclosure(false);
 
   const { userData, isLoading, updateUser } = useAuthStore(
@@ -35,9 +33,9 @@ const RegistrationModal = () => {
     }
   };
 
-  const handleSubmit = () => {
-    toggle();
-    updateUser(form.values);
+  const handleSubmit = async () => {
+    await updateUser(form.values);
+    close();
   };
 
   return (
@@ -55,7 +53,7 @@ const RegistrationModal = () => {
         },
       }}
     >
-      <LoadingOverlay visible={visible} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} />
+      {/* <LoadingOverlay visible={visible} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} /> */}
       <Grid grow gutter="lg">
         <Grid.Col
           span={{ base: 12, md: 5 }}
@@ -127,9 +125,11 @@ const RegistrationModal = () => {
               size="md"
               fullWidth
               onClick={handleSubmit}
+              loading={isLoading}
+              loaderProps={{ type: "dots" }}
             >
               <p className="font-semibold text-lg">Start</p>
-            </Button >
+            </Button>
           </div>
         </Grid.Col>
       </Grid>

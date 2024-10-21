@@ -1,8 +1,11 @@
 import shop from "../assets/images/covers/shop.png";
+import logo from "../assets/images/logo.png";
+
 const Subscription = () => {
 	return (
 		<div className='hidden lg:flex lg:flex-col items-end mb-4'>
-			<h1 className='text-3xl italic font-bold mb-4'>RW/M</h1>
+			{/* <h1 className='text-3xl italic font-bold mb-4'>RW/M</h1> */}
+			<img src={logo} alt='logo' className='size-10'/>
 			<button
 				className='flex flex-row border border-spacing-1 border-[#696969] bg-[#0b0c1f] bg-gradient-to-t from-[#193909] rounded-lg shadow-lg font-bold py-2 px-4 mb-4'>
 				<div className='text-lg font-semibold italic'>

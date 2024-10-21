@@ -3,6 +3,8 @@ import {ThemeIcon, Burger} from '@mantine/core';
 import {useDisclosure} from '@mantine/hooks';
 import {Globe, CircleHelp} from 'lucide-react';
 
+import logo from "../assets/images/logo.png";
+
 const NavBar = () => {
 
 	const [isMobile, setIsMobile] = useState(false);
@@ -18,7 +20,8 @@ const NavBar = () => {
 	return (
 		<div
 			className='mx-auto max-w-screen-2xl py-10 px-10 md:px-24 flex justify-between items-center w-full text-white text-base'>
-			<p className='font-semibold italic'>RW/M</p>
+			{/* <p className='font-semibold italic'>RW/M</p> */}
+			<img src={logo} alt='logo' className='size-10'/>
 			{isMobile ? (
 				<Burger opened={opened} onClick={toggle} aria-label="Toggle navigation"/>
 			) : (
@@ -29,7 +32,7 @@ const NavBar = () => {
 						<p>Contact</p>
 						<p>Support us</p>
 					</div>
-					<div>
+					<div className='space-x-2'>
 						<ThemeIcon size={24} color='transparent' style={{cursor: 'pointer'}}><CircleHelp/></ThemeIcon>
 						<ThemeIcon size={24} color='transparent' style={{cursor: 'pointer'}}><Globe/></ThemeIcon>
 					</div>

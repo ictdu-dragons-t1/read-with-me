@@ -3,6 +3,10 @@ import { ArrowRightCircle } from "lucide-react"; // Import the curved arrow icon
 import { useNavigate } from "react-router-dom";
 import AliceLevelScreenThree from "./AliceLevelScreenThree"; // Import the new level screen
 import LoadingScreen from "./LoadingScreen"; // Import the LoadingScreen component
+import useTTS from "../hooks/useTTS";
+import { ActionIcon } from "@mantine/core";
+
+const VOICE_ID = "21m00Tcm4TlvDq8ikWAM";
 
 const AliceLevelScreen = ({ setPlay }) => {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -29,6 +33,8 @@ const AliceLevelScreen = ({ setPlay }) => {
   const [expandedChapters, setExpandedChapters] = useState([]);
   const [level, setLevel] = useState(2); // New state for tracking the current level
   const [showLoading, setShowLoading] = useState(false); // New state to control the loading screen display
+
+  const { startStreaming } = useTTS();
 
   // Predefined hints for each question
   const hints = [
@@ -124,7 +130,7 @@ const AliceLevelScreen = ({ setPlay }) => {
   };
 
   return (
-    <div className='flex w-screen h-screen bg-[#dfc495] text-[#2e2e2e] relative'>
+    <div className="flex w-screen h-screen bg-[#dfc495] text-[#2e2e2e] relative">
       {/* Sidebar - Fixed width initially, expands on click */}
       <div
         className={`${
@@ -132,7 +138,7 @@ const AliceLevelScreen = ({ setPlay }) => {
         } bg-[#b49a68] p-4 flex flex-col transition-all duration-300 fixed top-0 left-0 h-full z-50 shadow-lg rounded-r-lg`}
       >
         <button
-          className='text-white text-2xl mb-4 fixed top-4 left-4'
+          className="text-white text-2xl mb-4 fixed top-4 left-4"
           onClick={() => setIsSidebarExpanded(!isSidebarExpanded)}
         >
           &#9776;
@@ -140,9 +146,9 @@ const AliceLevelScreen = ({ setPlay }) => {
 
         {/* Chapter list in the sidebar */}
         {isSidebarExpanded && (
-          <div className='mt-16'>
-            <h3 className='text-white text-lg mb-2 font-semibold'>Chapters:</h3>
-            <div className='flex flex-col gap-2'>
+          <div className="mt-16">
+            <h3 className="text-white text-lg mb-2 font-semibold">Chapters:</h3>
+            <div className="flex flex-col gap-2">
               {[
                 {
                   title: "Down the Rabbit Hole",
@@ -177,10 +183,10 @@ const AliceLevelScreen = ({ setPlay }) => {
                       !chapterInfo.isLocked && toggleChapterExpansion(index)
                     } // Toggle level cards on chapter click if not locked
                   >
-                    <h4 className='text-[#654321] font-bold'>
+                    <h4 className="text-[#654321] font-bold">
                       {chapterInfo.chapter}:
                     </h4>
-                    <p className='text-[#2e2e2e]'>{chapterInfo.title}</p>
+                    <p className="text-[#2e2e2e]">{chapterInfo.title}</p>
                   </div>
 
                   {/* Level Cards Dropdown */}
@@ -201,7 +207,7 @@ const AliceLevelScreen = ({ setPlay }) => {
                               : "bg-[#d9c39e] font-bold"
                           }`}
                         >
-                          <p className='text-[#2e2e2e] font-bold'>{level}</p>
+                          <p className="text-[#2e2e2e] font-bold">{level}</p>
                         </div>
                       )
                     )}
@@ -215,10 +221,10 @@ const AliceLevelScreen = ({ setPlay }) => {
         {/* Exit button at the bottom of the sidebar */}
         {isSidebarExpanded && (
           <button
-            className='bg-[#7a6543] text-white rounded py-2 mt-auto hover:bg-[#5a4c3a] transition-colors duration-200 flex items-center'
+            className="bg-[#7a6543] text-white rounded py-2 mt-auto hover:bg-[#5a4c3a] transition-colors duration-200 flex items-center"
             onClick={() => navigate("/")} // Navigate to Home
           >
-            <ArrowRightCircle className='mx-2' /> {/* Curved arrow icon */}
+            <ArrowRightCircle className="mx-2" /> {/* Curved arrow icon */}
             Exit to Home
           </button>
         )}
@@ -235,30 +241,80 @@ const AliceLevelScreen = ({ setPlay }) => {
       )}
 
       {/* Center Section - Story */}
-      <div className='ml-12 w-1/2 p-6 bg-[#f1e9d1] flex flex-col items-center'>
-        <div className='flex flex-row mt-4'>
-          <h2 className='text-4xl font-bold text-center mb-4 text-[#654321]'>
+      <div className="ml-12 w-1/2 p-6 bg-[#f1e9d1] flex flex-col items-center">
+        <div className="flex flex-row mt-4">
+          <h2 className="text-4xl font-bold text-center mb-4 text-[#654321]">
             Chapter 1:
           </h2>
-          <h2 className='text-4xl rabbit-hole-title text-center mb-1 text-[#654321]'>
+          <h2 className="text-4xl rabbit-hole-title text-center mb-1 text-[#654321]">
             Down the Rabbit Hole
           </h2>
         </div>
-        <h2 className='text-2xl mb-4 text-center text-[#654321] underline'>
+        <h2 className="text-2xl mb-4 text-center text-[#654321] underline">
           Level 2
         </h2>
 
-        <div className='novel-text mt-4 text-justify leading-relaxed'>
+        <div className="novel-text mt-4 text-justify leading-relaxed">
+          <ActionIcon
+            variant="light"
+            color="#b49a68"
+            onClick={() =>
+              (async () => {
+                await startStreaming({
+                  voiceId: VOICE_ID,
+                  text: `In another moment down went Alice after it, never once considering
+            how in the world she was to get out again.`,
+                });
+              })()
+            }
+          ></ActionIcon>
           <p>
             In another moment down went Alice after it, never once considering
             how in the world she was to get out again.
           </p>
+          <ActionIcon
+            variant="light"
+            color="#b49a68"
+            onClick={() =>
+              (async () => {
+                await startStreaming({
+                  voiceId: VOICE_ID,
+                  text: `The rabbit-hole went straight on like a tunnel for some way, and
+            then dipped suddenly down, so suddenly that Alice had not a moment
+            to think about stopping herself before she found herself falling
+            down a very deep well.`,
+                });
+              })()
+            }
+          ></ActionIcon>
           <p>
             The rabbit-hole went straight on like a tunnel for some way, and
             then dipped suddenly down, so suddenly that Alice had not a moment
             to think about stopping herself before she found herself falling
             down a very deep well.
           </p>
+          <ActionIcon
+            variant="light"
+            color="#b49a68"
+            onClick={() =>
+              (async () => {
+                await startStreaming({
+                  voiceId: VOICE_ID,
+                  text: `Either the well was very deep, or she fell very slowly, for she had
+            plenty of time as she went down to look about her and to wonder what
+            was going to happen next. First, she tried to look down and make out
+            what she was coming to, but it was too dark to see anything; then
+            she looked at the sides of the well, and noticed that they were
+            filled with cupboards and book-shelves; here and there she saw maps
+            and pictures hung upon pegs. She took down a jar from one of the
+            shelves as she passed; it was labelled “ORANGE MARMALADE”, but to
+            her great disappointment it was empty: she did not like to drop the
+            jar for fear of killing somebody underneath, so managed to put it
+            into one of the cupboards as she fell past it.`,
+                });
+              })()
+            }
+          ></ActionIcon>
           <p>
             Either the well was very deep, or she fell very slowly, for she had
             plenty of time as she went down to look about her and to wonder what
@@ -276,26 +332,26 @@ const AliceLevelScreen = ({ setPlay }) => {
       </div>
 
       {/* Right Section - Sequencing Cards */}
-      <div className='w-3/8 bg-[#dfc495] p-6 flex flex-col items-center'>
-        <div className='text-left font-bold text-[#2e2e2e] w-full mb-4'>
+      <div className="w-3/8 bg-[#dfc495] p-6 flex flex-col items-center">
+        <div className="text-left font-bold text-[#2e2e2e] w-full mb-4">
           <span>Arrange the following events:</span>
         </div>
 
         {/* Number Click Handling */}
-        <div className='flex flex-col gap-4 w-full'>
+        <div className="flex flex-col gap-4 w-full">
           {sequences.map((sequence, index) => (
             <div
               key={sequence.id}
-              className='bg-[#f1e9d1] p-4 rounded-lg shadow-md flex items-center justify-between cursor-pointer hover:shadow-lg transition-shadow duration-300'
+              className="bg-[#f1e9d1] p-4 rounded-lg shadow-md flex items-center justify-between cursor-pointer hover:shadow-lg transition-shadow duration-300"
               onClick={() => handleNumberClick(index)} // Increment count on click
             >
-              <span className='text-lg text-[#2e2e2e]'>{sequence.text}</span>
+              <span className="text-lg text-[#2e2e2e]">{sequence.text}</span>
               <button
                 onClick={(e) => {
                   e.stopPropagation(); // Prevent click event from triggering on parent
                   handleNumberClick(index); // Increment count on button click
                 }}
-                className='text-xl font-bold text-white rounded mx-2 px-3 py-1 bg-[#7a6543] hover:bg-[#5a4c3a] transition-colors duration-200' // Keep buttons brown and darken on hover
+                className="text-xl font-bold text-white rounded mx-2 px-3 py-1 bg-[#7a6543] hover:bg-[#5a4c3a] transition-colors duration-200" // Keep buttons brown and darken on hover
               >
                 {clickCounts[index]} {/* Display the count */}
               </button>
@@ -305,7 +361,7 @@ const AliceLevelScreen = ({ setPlay }) => {
 
         <button
           onClick={handleSubmit}
-          className='bg-[#7a6543] text-white rounded py-2 px-4 mt-4 hover:bg-[#5a4c3a] transition-colors duration-200'
+          className="bg-[#7a6543] text-white rounded py-2 px-4 mt-4 hover:bg-[#5a4c3a] transition-colors duration-200"
         >
           Submit
         </button>

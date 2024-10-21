@@ -1,22 +1,37 @@
 import { useState, useRef } from "react";
 import { Camera as CameraPro } from "react-camera-pro";
 import { Camera, RotateCcw, Save, Upload, X } from "lucide-react";
-import PropTypes from "prop-types";
 import { uploadScannedDoc } from "../utils/junoUtils";
+import { useShallow } from "zustand/shallow";
+import useModalStore from "../stores/useModalStore";
+import { Dialog } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 
-const DocumentScannerModal = ({ isOpen, onClose, onSave }) => {
+const DocumentScannerModal = () => {
   const [image, setImage] = useState(null);
-  const [imageSource, setImageSource] = useState("camera");
+  const [imageSource, setImageSource] = useState("file");
   const [isProcessing, setIsProcessing] = useState(false);
+  const [lastSaved, setLastSaved] = useState(null);
   const fileInputRef = useRef(null);
   const cameraRef = useRef(null);
 
+  const [opened, { open: openAlert, close: closeAlert }] = useDisclosure(false);
+
+  const { isScannerModalOpen, closeScannerModal } = useModalStore(
+    useShallow((state) => ({
+      isScannerModalOpen: state.isScannerModalOpen,
+      closeScannerModal: state.closeScannerModal,
+    }))
+  );
+
   const handleSaveDocument = async () => {
     setIsProcessing(true);
-    
-    const result = await uploadScannedDoc(image.file);
 
-    onSave(result);
+    const result = await uploadScannedDoc(image.file);
+    setLastSaved(result);
+    setImage(null);
+    openAlert();
+
     setIsProcessing(false);
   };
 
@@ -33,13 +48,47 @@ const DocumentScannerModal = ({ isOpen, onClose, onSave }) => {
     setImage({ src: URL.createObjectURL(imageFile), file: imageFile });
   };
 
-  if (!isOpen) return null;
+  if (!isScannerModalOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 backdrop-blur-sm">
+      <Dialog
+        opened={opened}
+        withCloseButton
+        onClose={closeAlert}
+        size="lg"
+        radius="md"
+        styles={{
+          root: {
+            background:
+              " linear-gradient(180deg, rgba(20,21,44,1) 0%, rgba(58,59,91,1) 100%)",
+          },
+        }}
+      >
+        <div className="space-y-2">
+          <h1 className="text-white font-bold mb-4">
+            Document Saved Successfully!
+          </h1>
+          <p className="text-white">
+            Your document will be processed and reviewed shortly.
+          </p>
+          <p className="text-white italic pb-2">
+            You can view the document through the link below:
+          </p>
+          <a
+            href={lastSaved?.downloadUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="text-white font-semibold underline text-sm"
+          >
+            {lastSaved?.downloadUrl}
+          </a>
+        </div>
+      </Dialog>
+
       <div className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-2xl p-8 shadow-2xl w-full max-w-md relative">
         <button
-          onClick={onClose}
+          onClick={closeScannerModal}
           className="absolute top-2 right-2 text-indigo-400 hover:text-indigo-600 transition-colors duration-200"
         >
           <X size={24} />
@@ -111,7 +160,7 @@ const DocumentScannerModal = ({ isOpen, onClose, onSave }) => {
                     className="bg-white bg-opacity-40 hover:bg-opacity-60 text-indigo-600 font-semibold py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out flex items-center"
                   >
                     <Upload className="mr-2" size={20} />
-                    Upload Image
+                    Upload File
                   </button>
                 </div>
               )}
@@ -143,12 +192,6 @@ const DocumentScannerModal = ({ isOpen, onClose, onSave }) => {
       </div>
     </div>
   );
-};
-
-DocumentScannerModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired,
 };
 
 export default DocumentScannerModal;

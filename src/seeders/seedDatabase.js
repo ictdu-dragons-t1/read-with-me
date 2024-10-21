@@ -1,5 +1,6 @@
 import { seedBooks } from "./bookSeeder";
 import { seedGenres } from "./genreSeeder";
+import { seedStories } from "./storySeeder";
 
 const seedDatabase = async () => {
   const isSeeding = localStorage.getItem("seeding");
@@ -19,6 +20,7 @@ const seedDatabase = async () => {
 
     await seedGenres();
     await seedBooks();
+    await seedStories();
 
     console.log('Database seeding completed successfully.');
   } catch (error) {

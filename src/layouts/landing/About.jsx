@@ -29,7 +29,7 @@ const About = () => {
         <main className="mx-auto max-w-screen-2xl pb-20 md:py-22 px-10 md:px-24 tall:min-h-[calc(100dvh-128px)]">
             <Grid gutter='md'>
                 <Grid.Col>
-                    <h1 className='dark:text-white text-5xl md:text-5xl font-bold tracking-tight md:pt-20 mb-8'>Features</h1>
+                    <h1 className='text-white text-5xl md:text-5xl font-bold tracking-tight md:pt-20 mb-8'>Features</h1>
                 </Grid.Col>
 
                 <Grid.Col span={{ base: 12, md: 4, lg: 4, xl: 4 }}>

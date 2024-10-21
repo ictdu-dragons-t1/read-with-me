@@ -10,6 +10,7 @@ import { nanoid } from "nanoid";
 
 const GENRE_IMAGE_KEY = "genreImage";
 const BOOK_IMAGE_KEY = "coverImage";
+const STORY_IMAGE_KEY = "keyImage";
 
 export const getUserDoc = async (user) => {
   const data = await listDocs({
@@ -235,6 +236,84 @@ export const setGenreDoc = async (genre) => {
   });
 };
 
+export const getStoryDocs = async () => {
+  const data = await listDocs({
+    collection: "stories",
+  });
+
+  return data.items;
+};
+
+export const getStoryDoc = async (id) => {
+  return await getDoc({
+    collection: "stories",
+    key: id,
+  });
+};
+
+export const setStoryDocs = async (stories) => {
+  const mappedStories = stories.map(async (story) => {
+    if (story.id) {
+      const existingStory = await getStoryDoc(story.id);
+
+      if (existingStory) {
+        return {
+          collection: "stories",
+          doc: {
+            ...existingStory,
+            data: {
+              ...existingStory.data,
+              ...story,
+            },
+          },
+        };
+      }
+    }
+
+    // Add id to story data
+    let storyData = { ...story, id: story.id || `story-${nanoid()}` };
+
+    // Transform story image to url
+    if (storyData[STORY_IMAGE_KEY]) {
+      storyData = await transformStoryWithImageUrl(storyData, STORY_IMAGE_KEY);
+    }
+
+    return {
+      collection: "stories",
+      doc: {
+        key: storyData.id,
+        data: storyData,
+      },
+    };
+  });
+
+  return await setManyDocs({ docs: await Promise.all(mappedStories) });
+};
+
+export const setStoryDoc = async (story) => {
+  let storyData = { ...story, id: story.id || `story-${nanoid()}` };
+
+  // Transform story image to url
+  if (storyData[STORY_IMAGE_KEY]) {
+    storyData = await transformStoryWithImageUrl(storyData, STORY_IMAGE_KEY);
+  }
+
+  // Add existing story if it exists
+  const existingStory = await getStoryDoc(storyData.id);
+
+  return await setDoc({
+    collection: "stories",
+    doc: {
+      ...(existingStory ?? {}),
+      key: storyData.id,
+      data: {
+        ...(existingStory?.data ?? {}),
+        ...storyData,
+      },
+    },
+  });
+};
+
 export const uploadBookImageDoc = async (bookImage) => {
   return await uploadFile({
     filename: `book-image-${nanoid()}`,
@@ -248,6 +327,14 @@ export const uploadGenreImageDoc = async (genreImage) => {
     filename: `genre-image-${nanoid()}`,
     data: genreImage,
     collection: "genre_images",
+  });
+};
+
+export const uploadStoryImageDoc = async (storyImage) => {
+  return await uploadFile({
+    filename: `story-image-${nanoid()}`,
+    data: storyImage,
+    collection: "story_images",
   });
 };
 
@@ -278,5 +365,20 @@ export const transformGenreWithImageUrl = async (genre, imageKey) => {
   return {
     ...genre,
     [`${imageKey}Url`]: genreImageUrl, // Replace with url
+  };
+};
+
+export const transformStoryWithImageUrl = async (story, imageKey) => {
+  // Convert image to blob file
+  const storyImageFile = await fetch(story[imageKey]).then((res) => res.blob());
+
+  // Upload image files to juno
+  const storyImageUrl = await uploadStoryImageDoc(storyImageFile).then(
+    (res) => res.downloadUrl
+  );
+
+  return {
+    ...story,
+    [`${imageKey}Url`]: storyImageUrl, // Replace with url
   };
 };

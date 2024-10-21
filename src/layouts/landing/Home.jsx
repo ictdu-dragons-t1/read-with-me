@@ -1,5 +1,4 @@
 
-import React from 'react'
 import monitor from "../../assets/images/3dMonitor.png";
 import { Grid, Image, Stack, Button } from '@mantine/core'
 import Login from "../../components/Login";
@@ -9,7 +8,6 @@ import chess from "../../assets/images/chess.png";
 import puzzle from "../../assets/images/puzzle.png";
 import avatar from "../../assets/images/avatar.png";
 import medal from "../../assets/images/medal.png";
-import {signOut} from "@junobuild/core";
 
 
 const Home = () => {
@@ -34,13 +32,13 @@ const Home = () => {
 
     return (
         <>
-            <main className="mx-auto max-w-screen-2xl pt-20 mt-20 md:py-22  px-10 md:px-24 tall:min-h-[calc(100dvh-128px)]">
+            <main className="mt-20 pb-48 px-20">
                 <Grid>
-                    <Grid.Col span={{ base: 12, md: 6, lg: 4, xl: 4 }}>
-                        <h1 className="dark:text-white text-5xl md:text-5xl font-bold tracking-tight md:pt-20">
+                    <Grid.Col span={{ base: 12, md: 6, lg: 4, xl: 4 }} className="space-y-5">
+                        <h1 className="text-white text-5xl md:text-5xl font-bold">
                             Unlocking Literacy in Young Minds
                         </h1>
-                        <p className="dark:text-white py-4 md:max-w-lg text-lg md:text-1xl lg:text-2xl">
+                        <p className="text-white py-4 md:max-w-lg text-lg md:text-1xl lg:text-2xl">
                             Make developing reading comprehension fun, accessible, and effective for young learners with ReadWithMe.
                         </p>
                         <Login />
@@ -52,8 +50,8 @@ const Home = () => {
                         <Stack gap='lg' h='auto'>
                             {
                                 menu.map((menu, index) => (
-                                    <Button key={index} variant='filled' color='white' fullWidth h='auto' leftSection={menu.asset} justify='space-between'>
-                                        <p className='capitalize text-black'>
+                                    <Button key={index} variant='white' color='black' fullWidth h='auto' leftSection={menu.asset} justify='space-between'>
+                                        <p className='capitalize text-lg'>
                                             {menu.name}
                                         </p>
                                     </Button>

@@ -1,22 +1,34 @@
 import { useState, useRef } from "react";
 import { Camera as CameraPro } from "react-camera-pro";
 import { Camera, RotateCcw, Save, Upload, X } from "lucide-react";
-import PropTypes from "prop-types";
 import { uploadScannedDoc } from "../utils/junoUtils";
+import { useShallow } from "zustand/shallow";
+import useModalStore from "../stores/useModalStore";
 
-const DocumentScannerModal = ({ isOpen, onClose, onSave }) => {
+const DocumentScannerModal = () => {
   const [image, setImage] = useState(null);
   const [imageSource, setImageSource] = useState("camera");
   const [isProcessing, setIsProcessing] = useState(false);
   const fileInputRef = useRef(null);
   const cameraRef = useRef(null);
 
+  const { isScannerModalOpen, closeScannerModal, setCurrentData } = useModalStore(
+    useShallow((state) => ({
+      isScannerModalOpen: state.isScannerModalOpen,
+      closeScannerModal: state.closeScannerModal,
+      setCurrentData: state.setCurrentData,
+    }))
+  );
+
   const handleSaveDocument = async () => {
     setIsProcessing(true);
     
     const result = await uploadScannedDoc(image.file);
+    setCurrentData(result);
+    setImage(null);
+    alert("Document saved successfully!");
 
-    onSave(result);
+    closeScannerModal();
     setIsProcessing(false);
   };
 
@@ -33,13 +45,13 @@ const DocumentScannerModal = ({ isOpen, onClose, onSave }) => {
     setImage({ src: URL.createObjectURL(imageFile), file: imageFile });
   };
 
-  if (!isOpen) return null;
+  if (!isScannerModalOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 backdrop-blur-sm">
       <div className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-2xl p-8 shadow-2xl w-full max-w-md relative">
         <button
-          onClick={onClose}
+          onClick={closeScannerModal}
           className="absolute top-2 right-2 text-indigo-400 hover:text-indigo-600 transition-colors duration-200"
         >
           <X size={24} />
@@ -111,7 +123,7 @@ const DocumentScannerModal = ({ isOpen, onClose, onSave }) => {
                     className="bg-white bg-opacity-40 hover:bg-opacity-60 text-indigo-600 font-semibold py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out flex items-center"
                   >
                     <Upload className="mr-2" size={20} />
-                    Upload Image
+                    Upload File
                   </button>
                 </div>
               )}
@@ -143,12 +155,6 @@ const DocumentScannerModal = ({ isOpen, onClose, onSave }) => {
       </div>
     </div>
   );
-};
-
-DocumentScannerModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired,
 };
 
 export default DocumentScannerModal;

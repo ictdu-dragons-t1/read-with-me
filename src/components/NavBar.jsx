@@ -29,7 +29,7 @@ const NavBar = () => {
 						<p>Contact</p>
 						<p>Support us</p>
 					</div>
-					<div>
+					<div className='space-x-2'>
 						<ThemeIcon size={24} color='transparent' style={{cursor: 'pointer'}}><CircleHelp/></ThemeIcon>
 						<ThemeIcon size={24} color='transparent' style={{cursor: 'pointer'}}><Globe/></ThemeIcon>
 					</div>

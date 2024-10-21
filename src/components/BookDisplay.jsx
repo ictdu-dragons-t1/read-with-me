@@ -1,5 +1,5 @@
-const BookDisplay = ({books, currentBookIndex, isGenreSelect, isFading}) => {
-	if (!books.length) return null;
+const BookDisplay = ({books, currentBookIndex, isGenreSelect, handleGenreClick, isFading}) => {
+	if (isGenreSelect || !books.length) return null;
 
 	return (
 		<div className='relative ml-3 w-80 h-96 mb-16'>
@@ -36,18 +36,19 @@ const BookDisplay = ({books, currentBookIndex, isGenreSelect, isFading}) => {
 							filter: `blur(${calculateBlur(adjustedPosition)}px)`,
 							position: "absolute", // Static positioning for grid layout
 						}}
+						onClick={isGenreSelect && handleGenreClick}
 					>
 						{/* Genre Image that stays visible */}
 						<img
 							src={book.genre.genreImageUrl}
 							alt={`Genre of ${book.title}`}
-							className={`fixed left-[11px] w-full h-full object-cover rounded-md transition-opacity duration-300 ${isFading ? "opacity-300" : "opacity-0"}`} // Genre image remains fully visible
+							className={`fixed left-[11px] w-full h-full rounded-md transition-opacity duration-300 ${isFading ? "opacity-300" : "opacity-0"}`} // Genre image remains fully visible
 						/>
 						{/* Cover Image that fades out */}
 						<img
 							src={book.coverImage}
 							alt={`Cover of ${book.title}`}
-							className={`fixed w-full h-full object-cover rounded-md transition-opacity duration-300 ${isFading ? "opacity-0" : "opacity-100"}`} // Fade out coverImage
+							className={`fixed w-full h-full rounded-md transition-opacity duration-300 ${isFading ? "opacity-0" : "opacity-100"}`} // Fade out coverImage
 						/>
 					</div>
 				);

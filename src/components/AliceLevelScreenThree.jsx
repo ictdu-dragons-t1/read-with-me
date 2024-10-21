@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import AliceLevelScreenTwo from "./AliceLevelScreenTwo"; // Import the new level screen
 import LoadingScreen from "./LoadingScreen"; // Import the LoadingScreen component
 import CheckpointScreen from "./CheckpointScreen"; // Import the CheckpointScreen component
+import { ActionIcon } from "@mantine/core";
+import useTTS from "../hooks/useTTS";
+
+const VOICE_ID = "21m00Tcm4TlvDq8ikWAM";
 
 const AliceLevelScreen = ({ setPlay }) => {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -17,6 +21,8 @@ const AliceLevelScreen = ({ setPlay }) => {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false); // New state for sidebar expansion
   const [expandedChapters, setExpandedChapters] = useState([]);
   const [level, setLevel] = useState(3); // New state for tracking the current level
+
+  const { startStreaming } = useTTS();
 
   // Predefined hints for each question
   const hints = [
@@ -119,7 +125,7 @@ const AliceLevelScreen = ({ setPlay }) => {
   };
 
   return (
-    <div className='flex w-screen h-screen bg-[#dfc495] text-[#2e2e2e] relative'>
+    <div className="flex w-screen h-screen bg-[#dfc495] text-[#2e2e2e] relative">
       {/* Sidebar - Fixed width initially, expands on click */}
       <div
         className={`${
@@ -127,7 +133,7 @@ const AliceLevelScreen = ({ setPlay }) => {
         } bg-[#b49a68] p-4 flex flex-col transition-all duration-300 fixed top-0 left-0 h-full z-50 shadow-lg rounded-r-lg`}
       >
         <button
-          className='text-white text-2xl mb-4 fixed top-4 left-4'
+          className="text-white text-2xl mb-4 fixed top-4 left-4"
           onClick={() => setIsSidebarExpanded(!isSidebarExpanded)}
         >
           &#9776;
@@ -135,9 +141,9 @@ const AliceLevelScreen = ({ setPlay }) => {
 
         {/* Chapter list in the sidebar */}
         {isSidebarExpanded && (
-          <div className='mt-16'>
-            <h3 className='text-white text-lg mb-2 font-semibold'>Chapters:</h3>
-            <div className='flex flex-col gap-2'>
+          <div className="mt-16">
+            <h3 className="text-white text-lg mb-2 font-semibold">Chapters:</h3>
+            <div className="flex flex-col gap-2">
               {[
                 {
                   title: "Down the Rabbit Hole",
@@ -172,10 +178,10 @@ const AliceLevelScreen = ({ setPlay }) => {
                       !chapterInfo.isLocked && toggleChapterExpansion(index)
                     } // Toggle level cards on chapter click if not locked
                   >
-                    <h4 className='text-[#654321] font-bold'>
+                    <h4 className="text-[#654321] font-bold">
                       {chapterInfo.chapter}:
                     </h4>
-                    <p className='text-[#2e2e2e]'>{chapterInfo.title}</p>
+                    <p className="text-[#2e2e2e]">{chapterInfo.title}</p>
                   </div>
 
                   {/* Level Cards Dropdown */}
@@ -196,7 +202,7 @@ const AliceLevelScreen = ({ setPlay }) => {
                               : "bg-[#d9c39e] font-bold"
                           }`}
                         >
-                          <p className='text-[#2e2e2e] font-bold'>{level}</p>
+                          <p className="text-[#2e2e2e] font-bold">{level}</p>
                         </div>
                       )
                     )}
@@ -210,10 +216,10 @@ const AliceLevelScreen = ({ setPlay }) => {
         {/* Exit button at the bottom of the sidebar */}
         {isSidebarExpanded && (
           <button
-            className='bg-[#7a6543] text-white rounded py-2 mt-auto hover:bg-[#5a4c3a] transition-colors duration-200 flex items-center'
+            className="bg-[#7a6543] text-white rounded py-2 mt-auto hover:bg-[#5a4c3a] transition-colors duration-200 flex items-center"
             onClick={() => navigate("/")} // Navigate to Home
           >
-            <ArrowRightCircle className='mx-2' /> {/* Curved arrow icon */}
+            <ArrowRightCircle className="mx-2" /> {/* Curved arrow icon */}
             Exit to Home
           </button>
         )}
@@ -228,26 +234,63 @@ const AliceLevelScreen = ({ setPlay }) => {
         <div className={`absolute inset-0 bg-black fade-out -z-40`}></div>
       )}
       {/* Center Section - Story */}
-      <div className='ml-12 w-1/2 p-6 bg-[#f1e9d1] flex flex-col items-center'>
-        <div className='flex flex-row mt-4'>
-          <h2 className='text-4xl font-bold text-center mb-4 text-[#654321]'>
+      <div className="ml-12 w-1/2 p-6 bg-[#f1e9d1] flex flex-col items-center">
+        <div className="flex flex-row mt-4">
+          <h2 className="text-4xl font-bold text-center mb-4 text-[#654321]">
             Chapter 1:
           </h2>
-          <h2 className='text-4xl rabbit-hole-title text-center mb-1 text-[#654321]'>
+          <h2 className="text-4xl rabbit-hole-title text-center mb-1 text-[#654321]">
             Down the Rabbit Hole
           </h2>
         </div>
-        <h2 className='text-2xl mb-4 text-center text-[#654321] underline'>
+        <h2 className="text-2xl mb-4 text-center text-[#654321] underline">
           Level 3
         </h2>
 
-        <div className='novel-text mt-4 text-justify leading-relaxed'>
+        <div className="novel-text mt-4 text-justify leading-relaxed">
+          <ActionIcon
+            variant="light"
+            color="#b49a68"
+            onClick={() =>
+              (async () => {
+                await startStreaming({
+                  voiceId: VOICE_ID,
+                  text: `“Well!” thought Alice to herself, “after such a fall as this, I
+            shall think nothing of tumbling down stairs! How brave they’ll all
+            think me at home! Why, I wouldn't say anything about it, even if I
+            fell off the top of the house!” (Which was very likely true.)`,
+                });
+              })()
+            }
+          ></ActionIcon>
           <p>
             “Well!” thought Alice to herself, “after such a fall as this, I
             shall think nothing of tumbling down stairs! How brave they’ll all
             think me at home! Why, I wouldn't say anything about it, even if I
             fell off the top of the house!” (Which was very likely true.)
           </p>
+          <ActionIcon
+            variant="light"
+            color="#b49a68"
+            onClick={() =>
+              (async () => {
+                await startStreaming({
+                  voiceId: VOICE_ID,
+                  text: ` Down, down, down. Would the fall never come to an end? “I wonder how
+            many miles I’ve fallen by this time?” she said aloud. “I must be
+            getting somewhere near the centre of the earth. Let me see: that
+            would be four thousand miles down, I think—” (for, you see, Alice
+            had learnt several things of this sort in her lessons in the
+            schoolroom, and though this was not a very good opportunity for
+            showing off her knowledge, as there was no one to listen to her,
+            still it was good practice to say it over) “—yes, that’s about the
+            right distance—but then I wonder what Latitude or Longitude I’ve got
+            to?” (Alice had no idea what Latitude was, or Longitude either, but
+            thought they were nice grand words to say.)`,
+                });
+              })()
+            }
+          ></ActionIcon>
           <p>
             Down, down, down. Would the fall never come to an end? “I wonder how
             many miles I’ve fallen by this time?” she said aloud. “I must be
@@ -264,18 +307,18 @@ const AliceLevelScreen = ({ setPlay }) => {
         </div>
       </div>
       {/* Right Section - Character Reflection Activity */}
-      <div className='w-[45%] bg-transparent mt-6 ml-auto mr-auto py-6 rounded-lg flex flex-col items-center'>
+      <div className="w-[45%] bg-transparent mt-6 ml-auto mr-auto py-6 rounded-lg flex flex-col items-center">
         {/* Entire Content in a Card */}
-        <div className='bg-[#f1e9d1] w-11/12 p-6 px-5 mr-3 rounded-lg flex flex-col items-center'>
+        <div className="bg-[#f1e9d1] w-11/12 p-6 px-5 mr-3 rounded-lg flex flex-col items-center">
           {/* Header */}
-          <h2 className='text-3xl font-semibold text-[#654321] mb-4'>
+          <h2 className="text-3xl font-semibold text-[#654321] mb-4">
             Character Reflection Activity
           </h2>
 
           {/* Prompt Card */}
-          <div className='bg-[#b49a68] w-11/12 p-4 rounded-lg shadow-md mb-6'>
-            <p className='font-semibold text-lg text-[#ffffff]'>Prompts:</p>
-            <ul className='list-disc list-inside text-white pl-5'>
+          <div className="bg-[#b49a68] w-11/12 p-4 rounded-lg shadow-md mb-6">
+            <p className="font-semibold text-lg text-[#ffffff]">Prompts:</p>
+            <ul className="list-disc list-inside text-white pl-5">
               <li>
                 Imagine falling down an endless hole like Alice. How would she
                 be feeling in that moment, and why might those feelings arise?
@@ -295,14 +338,14 @@ const AliceLevelScreen = ({ setPlay }) => {
           <textarea
             rows={8}
             placeholder="Write your journal entry from Alice's perspective here..."
-            className='w-11/12 p-4 rounded-lg border border-[#b49a68] mb-4 text-[#2e2e2e] focus:outline-none focus:ring-2 focus:ring-[#b49a68] transition duration-200'
+            className="w-11/12 p-4 rounded-lg border border-[#b49a68] mb-4 text-[#2e2e2e] focus:outline-none focus:ring-2 focus:ring-[#b49a68] transition duration-200"
             onChange={(e) => handleChange(0, e.target.value)} // Handle change for the journal entry
           />
 
           {/* Submit Button */}
           <button
             onClick={handleSubmit} // Call handleSubmit when clicked
-            className='bg-[#7a6543] text-white rounded-lg py-2 px-6 hover:bg-[#5a4c3a] hover:scale-105 transition-transform duration-200'
+            className="bg-[#7a6543] text-white rounded-lg py-2 px-6 hover:bg-[#5a4c3a] hover:scale-105 transition-transform duration-200"
           >
             Submit Journal Entry
           </button>

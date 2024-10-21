@@ -17,7 +17,7 @@ const LandingFooter = () => {
 	return (
 		<>
 		<hr className="border-white border-1"/>
-		<Grid className="mx-auto max-w-screen-2xl my-10 md:px-24 text-white">
+		<Grid className="mx-auto max-w-screen-2xl py-10 md:px-24 text-white">
 			<Grid.Col span={12}>
 
 			</Grid.Col>
@@ -60,7 +60,6 @@ const LandingFooter = () => {
 			</Grid.Col>
 			</div>
 		</Grid>
-			<div className="bg-white w-full h-10"></div>
 		</>
 	);
 }

@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Lightbulb } from "lucide-react"; // Importing the Lightbulb icon from lucide-react
+import { AudioLines, Lightbulb } from "lucide-react"; // Importing the Lightbulb icon from lucide-react
 import { ArrowRightCircle } from "lucide-react"; // Import the curved arrow icon
 import { useNavigate } from "react-router-dom";
 import AliceLevelScreenTwo from "./AliceLevelScreenTwo"; // Import the new level screen
 import LoadingScreen from "./LoadingScreen"; // Import the LoadingScreen component
+import useTTS from "../hooks/useTTS";
+import { ActionIcon } from "@mantine/core";
+
+const VOICE_ID = "21m00Tcm4TlvDq8ikWAM";
 
 const AliceLevelScreen = ({ setPlay }) => {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -17,6 +21,8 @@ const AliceLevelScreen = ({ setPlay }) => {
   const [level, setLevel] = useState(1); // New state for tracking the current level
   const [showLoading, setShowLoading] = useState(false); // New state to control the loading screen display
   const [isContentVisible, setIsContentVisible] = useState(false); // State to control content visibility
+
+  const { startStreaming } = useTTS();
 
   // Predefined hints for each question
   const hints = [
@@ -114,8 +120,8 @@ const AliceLevelScreen = ({ setPlay }) => {
   };
 
   return (
-    <div className='flex w-screen h-screen bg-black relative'>
-      <div className='flex w-screen h-screen bg-[#dfc495] text-[#2e2e2e] relative'>
+    <div className="flex w-screen h-screen bg-black relative">
+      <div className="flex w-screen h-screen bg-[#dfc495] text-[#2e2e2e] relative">
         {/* Sidebar - Fixed width initially, expands on click */}
         <div
           className={`${
@@ -123,7 +129,7 @@ const AliceLevelScreen = ({ setPlay }) => {
           } bg-[#b49a68] p-4 flex flex-col transition-all duration-300 fixed top-0 left-0 h-full z-50 shadow-lg rounded-r-lg`}
         >
           <button
-            className='text-white text-2xl mb-4 fixed top-4 left-4'
+            className="text-white text-2xl mb-4 fixed top-4 left-4"
             onClick={() => setIsSidebarExpanded(!isSidebarExpanded)}
           >
             &#9776;
@@ -131,11 +137,11 @@ const AliceLevelScreen = ({ setPlay }) => {
 
           {/* Chapter list in the sidebar */}
           {isSidebarExpanded && (
-            <div className='mt-16'>
-              <h3 className='text-white text-lg mb-2 font-semibold'>
+            <div className="mt-16">
+              <h3 className="text-white text-lg mb-2 font-semibold">
                 Chapters:
               </h3>
-              <div className='flex flex-col gap-2'>
+              <div className="flex flex-col gap-2">
                 {[
                   {
                     title: "Down the Rabbit Hole",
@@ -170,10 +176,10 @@ const AliceLevelScreen = ({ setPlay }) => {
                         !chapterInfo.isLocked && toggleChapterExpansion(index)
                       } // Toggle level cards on chapter click if not locked
                     >
-                      <h4 className='text-[#654321] font-bold'>
+                      <h4 className="text-[#654321] font-bold">
                         {chapterInfo.chapter}:
                       </h4>
-                      <p className='text-[#2e2e2e]'>{chapterInfo.title}</p>
+                      <p className="text-[#2e2e2e]">{chapterInfo.title}</p>
                     </div>
 
                     {/* Level Cards Dropdown */}
@@ -194,7 +200,7 @@ const AliceLevelScreen = ({ setPlay }) => {
                                 : "bg-[#d9c39e] font-bold"
                             }`}
                           >
-                            <p className='text-[#2e2e2e] font-bold'>{level}</p>
+                            <p className="text-[#2e2e2e] font-bold">{level}</p>
                           </div>
                         )
                       )}
@@ -208,10 +214,10 @@ const AliceLevelScreen = ({ setPlay }) => {
           {/* Exit button at the bottom of the sidebar */}
           {isSidebarExpanded && (
             <button
-              className='bg-[#7a6543] text-white rounded py-2 mt-auto hover:bg-[#5a4c3a] transition-colors duration-200 flex items-center'
+              className="bg-[#7a6543] text-white rounded py-2 mt-auto hover:bg-[#5a4c3a] transition-colors duration-200 flex items-center"
               onClick={() => navigate("/")} // Navigate to Home
             >
-              <ArrowRightCircle className='mx-2' /> {/* Curved arrow icon */}
+              <ArrowRightCircle className="mx-2" /> {/* Curved arrow icon */}
               Exit to Home
             </button>
           )}
@@ -228,20 +234,38 @@ const AliceLevelScreen = ({ setPlay }) => {
         )}
 
         {/* Center Section - Story */}
-        <div className='ml-12 w-1/2 p-6 bg-[#f1e9d1] flex flex-col items-center'>
-          <div className='flex flex-row mt-4'>
-            <h2 className='text-4xl font-bold text-center mb-4 text-[#654321]'>
+        <div className="ml-12 w-1/2 p-6 bg-[#f1e9d1] flex flex-col items-center">
+          <div className="flex flex-row mt-4">
+            <h2 className="text-4xl font-bold text-center mb-4 text-[#654321]">
               Chapter 1:
             </h2>
-            <h2 className='text-4xl rabbit-hole-title text-center mb-1 text-[#654321]'>
+            <h2 className="text-4xl rabbit-hole-title text-center mb-1 text-[#654321]">
               Down the Rabbit Hole
             </h2>
           </div>
-          <h2 className='text-2xl mb-4 text-center text-[#654321] underline'>
+          <h2 className="text-2xl mb-4 text-center text-[#654321] underline">
             Level 1
           </h2>
 
-          <div className='novel-text mt-4 text-justify leading-relaxed'>
+          <div className="novel-text mt-4 text-justify leading-relaxed">
+            <ActionIcon
+              variant="light"
+              color="#b49a68"
+              onClick={() =>
+                (async () => {
+                  await startStreaming({
+                    voiceId: VOICE_ID,
+                    text: `Alice was beginning to get very tired of sitting by her sister on
+                the bank, and of having nothing to do: once or twice she had
+                peeped into the book her sister was reading, but it had no
+                pictures or conversations in it, “and what is the use of a book,”
+                thought Alice, “without pictures or conversations?”"`,
+                  });
+                })()
+              }
+            >
+              <AudioLines />
+            </ActionIcon>
             <p>
               Alice was beginning to get very tired of sitting by her sister on
               the bank, and of having nothing to do: once or twice she had
@@ -249,6 +273,24 @@ const AliceLevelScreen = ({ setPlay }) => {
               pictures or conversations in it, “and what is the use of a book,”
               thought Alice, “without pictures or conversations?”
             </p>
+            <ActionIcon
+              variant="light"
+              color="#b49a68"
+              onClick={() =>
+                (async () => {
+                  await startStreaming({
+                    voiceId: VOICE_ID,
+                    text: `So she was considering in her own mind (as well as she could, for
+              the hot day made her feel very sleepy and stupid) whether the
+              pleasure of making a daisy-chain would be worth the trouble of
+              getting up and picking the daisies, when suddenly a White Rabbit
+              with pink eyes ran close by her.`,
+                  });
+                })()
+              }
+            >
+              <AudioLines />
+            </ActionIcon>
             <p>
               So she was considering in her own mind (as well as she could, for
               the hot day made her feel very sleepy and stupid) whether the
@@ -256,6 +298,31 @@ const AliceLevelScreen = ({ setPlay }) => {
               getting up and picking the daisies, when suddenly a White Rabbit
               with pink eyes ran close by her.
             </p>
+            <ActionIcon
+              variant="light"
+              color="#b49a68"
+              onClick={() =>
+                (async () => {
+                  await startStreaming({
+                    voiceId: VOICE_ID,
+                    text: `There was nothing so very remarkable in that; nor did Alice think
+              it so very much out of the way to hear the Rabbit say to itself,
+              “Oh dear! Oh dear! I shall be late!” (when she thought it over
+              afterwards, it occurred to her that she ought to have wondered at
+              this, but at the time it all seemed quite natural); but when the
+              Rabbit actually took a watch out of its waistcoat-pocket, and
+              looked at it, and then hurried on, Alice started to her feet, for
+              it flashed across her mind that she had never before seen a rabbit
+              with either a waistcoat-pocket, or a watch to take out of it, and
+              burning with curiosity, she ran across the field after it, and
+              fortunately was just in time to see it pop down a large
+              rabbit-hole under the hedge.`,
+                  });
+                })()
+              }
+            >
+              <AudioLines />
+            </ActionIcon>
             <p>
               There was nothing so very remarkable in that; nor did Alice think
               it so very much out of the way to hear the Rabbit say to itself,
@@ -274,12 +341,12 @@ const AliceLevelScreen = ({ setPlay }) => {
         </div>
 
         {/* Right Section - Questions */}
-        <div className='w-3/8 bg-[#dfc495] p-6 flex flex-col items-center'>
-          <div className='text-right text-[#2e2e2e] w-full'>
+        <div className="w-3/8 bg-[#dfc495] p-6 flex flex-col items-center">
+          <div className="text-right text-[#2e2e2e] w-full">
             <span>Time Left: {formatTime(timeLeft)}</span>
           </div>
 
-          <ul className='list-decimal px-5 text-lg text-[#2e2e2e] w-full'>
+          <ul className="list-decimal px-5 text-lg text-[#2e2e2e] w-full">
             {[
               "What was Alice getting tired of while sitting by her sister?",
               "What did Alice think about the book her sister was reading?",
@@ -287,32 +354,32 @@ const AliceLevelScreen = ({ setPlay }) => {
               "What did the White Rabbit exclaim as it ran by Alice?",
               "What unusual item did Alice notice the Rabbit take out of its waistcoat-pocket?",
             ].map((question, index) => (
-              <li key={index} className='mb-4'>
+              <li key={index} className="mb-4">
                 {question} <br />
-                <span className='text-black'>Answer:</span>
-                <div className='flex items-center'>
+                <span className="text-black">Answer:</span>
+                <div className="flex items-center">
                   <input
-                    type='text'
+                    type="text"
                     value={answers[index]}
                     onChange={(e) => handleChange(index, e.target.value)} // Ensure onChange is correct
-                    className='bg-[#f1e9d1] text-[#2e2e2e] rounded p-1 mt-1 w-full placeholder:text-[#654321]'
-                    placeholder='Type your answer here...'
+                    className="bg-[#f1e9d1] text-[#2e2e2e] rounded p-1 mt-1 w-full placeholder:text-[#654321]"
+                    placeholder="Type your answer here..."
                   />
 
                   <button
                     onClick={() => handleHint(index)}
-                    className='ml-2 bg-[#b49a68] text-white rounded px-2 py-1 mt-1 hover:bg-[#9b7f5e] flex items-center justify-center'
+                    className="ml-2 bg-[#b49a68] text-white rounded px-2 py-1 mt-1 hover:bg-[#9b7f5e] flex items-center justify-center"
                   >
-                    <Lightbulb className='w-5 h-5 text-[#2e2e2e]' />
+                    <Lightbulb className="w-5 h-5 text-[#2e2e2e]" />
                   </button>
                 </div>
               </li>
             ))}
           </ul>
 
-          <div className='w-full bg-[#b49a68] rounded mt-4'>
+          <div className="w-full bg-[#b49a68] rounded mt-4">
             <div
-              className='bg-[#7a6543] h-2 rounded transition-all duration-500 ease-in-out'
+              className="bg-[#7a6543] h-2 rounded transition-all duration-500 ease-in-out"
               style={{ width: `${(completedCount / answers.length) * 100}%` }}
             ></div>
           </div>

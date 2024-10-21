@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { ArrowRightCircle } from "lucide-react"; // Import the curved arrow icon
+import { ActionIcon } from "@mantine/core";
+import { ArrowRightCircle, AudioLines } from "lucide-react"; // Import the curved arrow icon
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useTTS from "../hooks/useTTS";
 import AliceLevelScreenThree from "./AliceLevelScreenThree"; // Import the new level screen
 import LoadingScreen from "./LoadingScreen"; // Import the LoadingScreen component
-import useTTS from "../hooks/useTTS";
-import { ActionIcon } from "@mantine/core";
 
 const VOICE_ID = "21m00Tcm4TlvDq8ikWAM";
 
@@ -267,7 +267,9 @@ const AliceLevelScreen = ({ setPlay }) => {
                 });
               })()
             }
-          ></ActionIcon>
+          >
+            <AudioLines />
+          </ActionIcon>
           <p>
             In another moment down went Alice after it, never once considering
             how in the world she was to get out again.
@@ -286,7 +288,9 @@ const AliceLevelScreen = ({ setPlay }) => {
                 });
               })()
             }
-          ></ActionIcon>
+          >
+            <AudioLines />
+          </ActionIcon>
           <p>
             The rabbit-hole went straight on like a tunnel for some way, and
             then dipped suddenly down, so suddenly that Alice had not a moment
@@ -314,7 +318,9 @@ const AliceLevelScreen = ({ setPlay }) => {
                 });
               })()
             }
-          ></ActionIcon>
+          >
+            <AudioLines />
+          </ActionIcon>
           <p>
             Either the well was very deep, or she fell very slowly, for she had
             plenty of time as she went down to look about her and to wonder what

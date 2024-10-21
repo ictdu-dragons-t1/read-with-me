@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ArrowRightCircle } from "lucide-react"; // Import the curved arrow icon
+import { ArrowRightCircle, AudioLines } from "lucide-react"; // Import the curved arrow icon
 import { useNavigate } from "react-router-dom";
 import AliceLevelScreenTwo from "./AliceLevelScreenTwo"; // Import the new level screen
 import LoadingScreen from "./LoadingScreen"; // Import the LoadingScreen component
@@ -262,7 +262,9 @@ const AliceLevelScreen = ({ setPlay }) => {
                 });
               })()
             }
-          ></ActionIcon>
+          >
+            <AudioLines />
+          </ActionIcon>
           <p>
             “Well!” thought Alice to herself, “after such a fall as this, I
             shall think nothing of tumbling down stairs! How brave they’ll all
@@ -290,7 +292,9 @@ const AliceLevelScreen = ({ setPlay }) => {
                 });
               })()
             }
-          ></ActionIcon>
+          >
+            <AudioLines />
+          </ActionIcon>
           <p>
             Down, down, down. Would the fall never come to an end? “I wonder how
             many miles I’ve fallen by this time?” she said aloud. “I must be

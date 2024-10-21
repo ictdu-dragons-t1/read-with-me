@@ -269,7 +269,10 @@ const AliceLevelScreen = ({ setPlay }) => {
                     return;
                   }
 
-                  if (firstParagraphTTS.current && firstParagraphTTS.current.paused) {
+                  if (
+                    firstParagraphTTS.current &&
+                    firstParagraphTTS.current.paused
+                  ) {
                     firstParagraphTTS.current.play();
                     setFirstTTSPaused(false);
                   } else {
@@ -285,7 +288,7 @@ const AliceLevelScreen = ({ setPlay }) => {
                 })()
               }
             >
-              {firstTTSPaused ? <Pause /> :<AudioLines />}
+              {firstTTSPaused ? <Pause /> : <AudioLines />}
             </ActionIcon>
             <p>
               Alice was beginning to get very tired of sitting by her sister on
@@ -308,23 +311,26 @@ const AliceLevelScreen = ({ setPlay }) => {
                     return;
                   }
 
-                  if (secondParagraphTTS.current && secondParagraphTTS.current.paused) {
+                  if (
+                    secondParagraphTTS.current &&
+                    secondParagraphTTS.current.paused
+                  ) {
                     secondParagraphTTS.current.play();
                     setSecondTTSPaused(false);
                   } else {
-                  secondParagraphTTS.current = await startStreaming({
-                    voiceId: VOICE_ID,
-                    text: `So she was considering in her own mind (as well as she could, for
+                    secondParagraphTTS.current = await startStreaming({
+                      voiceId: VOICE_ID,
+                      text: `So she was considering in her own mind (as well as she could, for
               the hot day made her feel very sleepy and stupid) whether the
               pleasure of making a daisy-chain would be worth the trouble of
               getting up and picking the daisies, when suddenly a White Rabbit
               with pink eyes ran close by her.`,
-                  });
+                    });
                   }
                 })()
               }
             >
-              {secondTTSPaused ? <Pause /> :<AudioLines />}
+              {secondTTSPaused ? <Pause /> : <AudioLines />}
             </ActionIcon>
             <p>
               So she was considering in her own mind (as well as she could, for
@@ -347,13 +353,16 @@ const AliceLevelScreen = ({ setPlay }) => {
                     return;
                   }
 
-                  if (thirdParagraphTTS.current && thirdParagraphTTS.current.paused) {
+                  if (
+                    thirdParagraphTTS.current &&
+                    thirdParagraphTTS.current.paused
+                  ) {
                     thirdParagraphTTS.current.play();
                     setThirdTTSPaused(false);
                   } else {
-                  thirdParagraphTTS.current = await startStreaming({
-                    voiceId: VOICE_ID,
-                    text: `There was nothing so very remarkable in that; nor did Alice think
+                    thirdParagraphTTS.current = await startStreaming({
+                      voiceId: VOICE_ID,
+                      text: `There was nothing so very remarkable in that; nor did Alice think
               it so very much out of the way to hear the Rabbit say to itself,
               “Oh dear! Oh dear! I shall be late!” (when she thought it over
               afterwards, it occurred to her that she ought to have wondered at
@@ -365,12 +374,12 @@ const AliceLevelScreen = ({ setPlay }) => {
               burning with curiosity, she ran across the field after it, and
               fortunately was just in time to see it pop down a large
               rabbit-hole under the hedge.`,
-                  });
+                    });
                   }
                 })()
               }
             >
-              {thirdTTSPaused ? <Pause /> :<AudioLines />}
+              {thirdTTSPaused ? <Pause /> : <AudioLines />}
             </ActionIcon>
             <p>
               There was nothing so very remarkable in that; nor did Alice think

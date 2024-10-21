@@ -1,32 +1,33 @@
-import { useCallback, useEffect, useState } from "react";
 import {
-  User,
-  Users,
-  Crosshair,
-  Trophy,
-  ShoppingBag,
-  Menu,
-  X,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
-  ChevronDown,
-  HelpCircle,
-  Settings,
+  Crosshair,
   Gift,
+  HelpCircle,
+  Menu,
+  Settings,
+  ShoppingBag,
   ShoppingCart,
+  Trophy,
+  User,
+  Users,
+  X,
 } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 
-import shop from "../assets/images/covers/Shop.png";
+import { useShallow } from "zustand/shallow";
 import book from "../assets/images/covers/Book.png";
 import profile from "../assets/images/covers/Profile.png";
-import RegistrationModal from "../components/RegistrationModal";
+import shop from "../assets/images/covers/Shop.png";
+import logo from "../assets/images/logo.png";
+import DocumentScannerModal from "../components/DocumentScannerModal";
 import Preview from "../components/Preview";
-import { getBookDocsWithGenres, getStoryDocs } from "../utils/junoUtils";
+import RegistrationModal from "../components/RegistrationModal";
 import SettingsModal from "../components/SettingsModal";
 import useAuthStore from "../stores/useAuthStore";
 import useModalStore from "../stores/useModalStore";
-import DocumentScannerModal from "../components/DocumentScannerModal";
-import { useShallow } from "zustand/shallow";
+import { getBookDocsWithGenres, getStoryDocs } from "../utils/junoUtils";
 
 const Home = () => {
   const [isGridVisible, setIsGridVisible] = useState(false); // For toggling the book grid
@@ -136,7 +137,8 @@ const Home = () => {
       <div className="fixed z-20 h-full w-full hidden right-0 lg:flex lg:w-1/4 flex-col p-4 overflow-y-auto bg-gradient-to-l from-[#0f1433]"></div>
       {/* Mobile Header */}
       <div className="lg:hidden flex justify-between items-center p-4 bg-purple-800">
-        <h1 className="text-xl font-semibold italic">RW/M</h1>
+        {/* <h1 className="text-xl font-semibold italic">RW/M</h1> */}
+        <img src={logo} alt='logo' className='size-10'/>
         <button
           className="text-white"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -421,7 +423,8 @@ const Home = () => {
       {/* Right Section - Logo, Upgrade, and Shop */}
       <div className="lg:w-1/4 z-40 flex flex-col items-center lg:items-end justify-between p-4">
         <div className="hidden lg:flex lg:flex-col items-end mb-4">
-          <h1 className="text-3xl italic font-bold mb-4">RW/M</h1>
+          {/* <h1 className="text-3xl italic font-bold mb-4">RW/M</h1> */}
+          <img src={logo} alt='logo' className='size-10 mb-5'/>
           <button className="flex flex-row border border-spacing-1 border-[#696969] bg-[#0b0c1f] bg-gradient-to-t from-[#193909] rounded-lg shadow-lg font-bold py-2 px-4 mb-4">
             <div className="text-lg font-semibold italic">
               Upgrade to Premium

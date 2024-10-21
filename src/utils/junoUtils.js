@@ -47,6 +47,7 @@ export const setUserDoc = async (userData, userDoc = null) => {
 
 export const uploadScannedDoc = async (scannedData) => {
   return await uploadFile({
+    filename: `scanned-doc-${nanoid()}`,
     data: scannedData,
     collection: "scanned_documents",
   });

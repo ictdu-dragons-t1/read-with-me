@@ -4,31 +4,34 @@ import { Camera, RotateCcw, Save, Upload, X } from "lucide-react";
 import { uploadScannedDoc } from "../utils/junoUtils";
 import { useShallow } from "zustand/shallow";
 import useModalStore from "../stores/useModalStore";
+import { Dialog } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 
 const DocumentScannerModal = () => {
   const [image, setImage] = useState(null);
   const [imageSource, setImageSource] = useState("file");
   const [isProcessing, setIsProcessing] = useState(false);
+  const [lastSaved, setLastSaved] = useState(null);
   const fileInputRef = useRef(null);
   const cameraRef = useRef(null);
 
-  const { isScannerModalOpen, closeScannerModal, setCurrentData } = useModalStore(
+  const [opened, { open: openAlert, close: closeAlert }] = useDisclosure(false);
+
+  const { isScannerModalOpen, closeScannerModal } = useModalStore(
     useShallow((state) => ({
       isScannerModalOpen: state.isScannerModalOpen,
       closeScannerModal: state.closeScannerModal,
-      setCurrentData: state.setCurrentData,
     }))
   );
 
   const handleSaveDocument = async () => {
     setIsProcessing(true);
-    
-    const result = await uploadScannedDoc(image.file);
-    setCurrentData(result);
-    setImage(null);
-    alert("Document saved successfully!");
 
-    closeScannerModal();
+    const result = await uploadScannedDoc(image.file);
+    setLastSaved(result);
+    setImage(null);
+    openAlert();
+
     setIsProcessing(false);
   };
 
@@ -49,6 +52,40 @@ const DocumentScannerModal = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 backdrop-blur-sm">
+      <Dialog
+        opened={opened}
+        withCloseButton
+        onClose={closeAlert}
+        size="lg"
+        radius="md"
+        styles={{
+          root: {
+            background:
+              " linear-gradient(180deg, rgba(20,21,44,1) 0%, rgba(58,59,91,1) 100%)",
+          },
+        }}
+      >
+        <div className="space-y-2">
+          <h1 className="text-white font-bold mb-4">
+            Document Saved Successfully!
+          </h1>
+          <p className="text-white">
+            Your document will be processed and reviewed shortly.
+          </p>
+          <p className="text-white italic pb-2">
+            You can view the document through the link below:
+          </p>
+          <a
+            href={lastSaved?.downloadUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="text-white font-semibold underline text-sm"
+          >
+            {lastSaved?.downloadUrl}
+          </a>
+        </div>
+      </Dialog>
+
       <div className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-2xl p-8 shadow-2xl w-full max-w-md relative">
         <button
           onClick={closeScannerModal}

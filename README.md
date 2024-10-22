@@ -21,7 +21,7 @@ By providing a scalable, interactive, and user-friendly platform! 🚀
 
 ## 🔍 How it works?
 
-![Read With Me (How It Works)](https://github.com/user-attachments/assets/6af65eb4-78e3-4450-9477-9d785a0e2123)
+![Read With Me (How It Works)](https://github.com/user-attachments/assets/2ee383bd-59b8-432d-ab62-6b4b6615215f)
 
 ## 📸 Screenshots
 
@@ -75,7 +75,7 @@ By providing a scalable, interactive, and user-friendly platform! 🚀
 
 ## 🏗️ Architecture
 
-![Read With Me (Architecture)](https://github.com/user-attachments/assets/d34211ea-e1fc-412f-ab34-73ff251a65a4)
+![Read With Me (Architecture)](https://github.com/user-attachments/assets/abd9a651-6eac-4b68-ab59-7ca8cfef6ca4)
 
 ## 👥 Team Members
 

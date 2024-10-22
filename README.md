@@ -59,6 +59,10 @@ By providing a scalable, interactive, and user-friendly platform! 🚀
 4. Once your website is built (check for **dist** or **build** folder), then deploy your website to Juno: `juno deploy`
 5. To open your website, run: `juno open` (You can also go to the Juno console to view the canister URL)
 
+### Deployed Canister URL:
+
+https://nh5bg-raaaa-aaaal-amqbq-cai.icp0.io
+
 ## 🚀 Technologies Used
 
 - **Juno** - Blockchain-as-a-service platform for deploying dapps onto ICP 🧊

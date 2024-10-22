@@ -19,6 +19,10 @@ We're solving the problems of:
 
 By providing a scalable, interactive, and user-friendly platform! 🚀
 
+[Watch the walkthrough video](https://www.canva.com/design/DAGUNyPswUE/3n81otyzT5drF1EoKFgJ5g/edit?utm_content=DAGUNyPswUE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
+[View the pitch deck](https://www.canva.com/design/DAGUNsupxBE/MjcNH3CdKZ-pkQ9mShH9RA/edit?utm_content=DAGUNsupxBE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
 ## 🔍 How it works?
 
 ![Read With Me (How It Works)](https://github.com/user-attachments/assets/2ee383bd-59b8-432d-ab62-6b4b6615215f)
@@ -30,7 +34,6 @@ By providing a scalable, interactive, and user-friendly platform! 🚀
 ![Screenshot 2024-10-21 at 22-26-39 Read With Me!](https://github.com/user-attachments/assets/f302a1ea-e8b5-4842-9778-ecb8c18b0da1)
 ![Screenshot 2024-10-21 at 22-27-08 Read With Me!](https://github.com/user-attachments/assets/9eab6550-fe46-4b1f-aa59-66018eacd138)
 ![Screenshot 2024-10-21 at 22-27-58 Read With Me!](https://github.com/user-attachments/assets/1dc116e1-cd7d-427e-95f8-37f0a71834e5)
-![Screenshot 2024-10-21 at 22-28-23 Read With Me!](https://github.com/user-attachments/assets/b0e4207b-72c3-4a5d-8a81-eece7cb607e3)
 
 
 ## 🛠️ Setup Instructions

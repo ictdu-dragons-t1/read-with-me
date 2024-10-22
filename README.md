@@ -76,6 +76,7 @@ https://nh5bg-raaaa-aaaal-amqbq-cai.icp0.io
 - **Tesseract.js** - OCR engine for JavaScript 👁️
 - **HuggingFace** - Platform to easily access machine learning models for various tasks 🤗
 - **Mistral AI** - Advanced AI for natural language processing tasks 🧠
+- **ChatGPT** - OpenAI's large language model designed for chatbots 🤖
 - **ElevenLabs** - Text-to-speech AI platform 🎙️
 - **Tailwind CSS** - Utility-first CSS framework 🌈
 - **Mantine UI** - React components library 🧱

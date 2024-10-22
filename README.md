@@ -1,6 +1,6 @@
 # ReadWithMe: Unlocking Literacy in Young Minds
 
-<img src="https://github.com/user-attachments/assets/8fd19665-9000-40db-a40f-787b2509d90a" width="30%"/><br>
+<img src="https://github.com/user-attachments/assets/1868eeb2-f8bc-4abb-8139-90eef999812d" width="30%"/><br>
 
 ## 🌟 What is ReadWithMe?
 
@@ -75,7 +75,7 @@ By providing a scalable, interactive, and user-friendly platform! 🚀
 
 ## 🏗️ Architecture
 
-![Read With Me (Architecture)](https://github.com/user-attachments/assets/abd9a651-6eac-4b68-ab59-7ca8cfef6ca4)
+![Read With Me (Architecture)](https://github.com/user-attachments/assets/b2cc01a6-0750-469b-8b59-b8fec6eefc93)
 
 ## 👥 Team Members
 

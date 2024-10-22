@@ -1,6 +1,6 @@
 # ReadWithMe: Unlocking Literacy in Young Minds
 
-<img src="https://github.com/user-attachments/assets/1868eeb2-f8bc-4abb-8139-90eef999812d" width="30%"/><br>
+<img src="https://github.com/user-attachments/assets/1868eeb2-f8bc-4abb-8139-90eef999812d" width="15%"/><br>
 
 ## 🌟 What is ReadWithMe?
 

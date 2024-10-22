@@ -74,7 +74,7 @@ https://nh5bg-raaaa-aaaal-amqbq-cai.icp0.io
 - **Zustand** - Small, fast, and scalable state management solution 🐻
 - **react-camera-pro** - Universal Camera component for React 📷
 - **Tesseract.js** - OCR engine for JavaScript 👁️
-- **HuggingFace** - Platform for machine learning models 🤗
+- **HuggingFace** - Platform to easily access machine learning models for various tasks 🤗
 - **Mistral AI** - Advanced AI for natural language processing tasks 🧠
 - **ElevenLabs** - Text-to-speech AI platform 🎙️
 - **Tailwind CSS** - Utility-first CSS framework 🌈

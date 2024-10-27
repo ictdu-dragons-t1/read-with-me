@@ -18,7 +18,7 @@ const ConfirmExitModal = ({ isOpen, onClose }) => {
         <div className='flex justify-end space-x-4'>
           <button
             className='px-4 py-2 text-white font-semibold rounded-lg bg-[#7a6543] hover:bg-[#654321] transition-all'
-            onClick={() => navigate("/")} // Navigate to home on Yes
+            onClick={() => navigate("/home")} // Navigate to home on Yes
           >
             Yes
           </button>

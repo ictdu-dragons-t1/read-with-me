@@ -21,7 +21,7 @@ By providing a scalable, interactive, and user-friendly platform! 🚀
 
 [View the pitch deck 📈](https://www.canva.com/design/DAGUNsupxBE/MjcNH3CdKZ-pkQ9mShH9RA/edit?utm_content=DAGUNsupxBE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
-[Watch the walkthrough video 💻](https://www.canva.com/design/DAGUNyPswUE/3n81otyzT5drF1EoKFgJ5g/edit?utm_content=DAGUNyPswUE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+[Watch the walkthrough video 💻](https://drive.google.com/file/d/1nQPqru_nPNF00hGrKVXTCMPPP3uqtXsv/view?usp=share_link)
 
 ## 🔍 How it works?
 

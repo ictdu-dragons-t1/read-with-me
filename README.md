@@ -87,7 +87,7 @@ https://nh5bg-raaaa-aaaal-amqbq-cai.icp0.io
 
 ## 👥 Team Members
 
-- **Mel Mathew Palaña** - Project Manager, DevOps Engineer, Database Administrator 👨‍💻
+- **Mel Mathew Palaña** - Project Manager, DevOps Engineer, Database Administrator, Full-stack Developer 👨‍💻
 - **Jose Gabriel Cruz** - Lead UI/UX Designer, Frontend Developer, Presenter 🎨
 - **John Carlo Paz** - UI/UX Designer, Frontend Developer 🖌️
 - **Quiana Dayrit** - Business Analyst, Content Manager, Presenter 📊
